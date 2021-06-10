@@ -245,5 +245,39 @@ title?: string
 mock?: {
 exclude?: string[]
 }
+antd?: {
+dark?: boolean
+compact?: boolean
+config?: {
+
+}
+}
+dva?: {
+disableModelsReExport?: boolean
+/**
+ * lazy load dva model avoiding the import modules from umi undefined
+ */
+lazyLoad?: boolean
+extraModels?: string[]
+hmr?: boolean
+immer?: (boolean | {
+
+})
+skipModelValidate?: boolean
+}
+locale?: {
+default?: string
+useLocalStorage?: boolean
+baseNavigator?: boolean
+title?: boolean
+antd?: boolean
+baseSeparator?: string
+}
+layout?: {
+
+}
+request?: {
+dataField?: ""
+}
 [k: string]: any
 }

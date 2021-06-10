@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { ApplyPluginsType } from '/Users/guoqi/workspace/my-app/node_modules/umi/node_modules/@umijs/runtime';
+import { ApplyPluginsType } from '/Users/guoqi/workspace/my-app/my-app/node_modules/umi/node_modules/@umijs/runtime';
 import * as umiExports from './umiExports';
 import { plugin } from './plugin';
 
@@ -8,8 +8,8 @@ export function getRoutes() {
   const routes = [
   {
     "path": "/",
-    "exact": true,
-    "component": require('@/pages/index.js').default
+    "component": require('@/pages/index').default,
+    "exact": true
   }
 ];
 
