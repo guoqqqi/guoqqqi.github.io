@@ -7,6 +7,11 @@ import { plugin } from './plugin';
 export function getRoutes() {
   const routes = [
   {
+    "path": "/MyDetail",
+    "exact": true,
+    "component": require('@/pages/MyDetail/index.tsx').default
+  },
+  {
     "path": "/",
     "exact": true,
     "component": require('@/pages/index.tsx').default
