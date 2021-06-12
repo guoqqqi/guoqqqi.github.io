@@ -14,4 +14,4 @@ Start the dev server,
 $ yarn start
 ```
 
-[这是一个测试页面]("/test")
+[这是一个测试页面](/test)
