@@ -1,18 +1,10 @@
-# umi project
+# 首页
 
-## Getting Started
+## 这是一个即将搭建起来的首页
 
-Install dependencies,
+- [] 首页
+- [] 播客页
+- [] 好玩的组件页
+- [] 动态简历
 
-```bash
-$ yarn
-```
-
-Start the dev server,
-
-```bash
-$ yarn start
-```
-
-[这是一个测试页面](/test)
-[这是测试生产环境的页面](/dist)
+[这是一个关于动态简历的测试页面](/resume)
