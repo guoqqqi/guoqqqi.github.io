@@ -48,18 +48,6 @@
         <div class="card">
           <div id="article">
             <div class="article-header"></div>
-            <script>
-              $(function () {
-                $.ajax({
-                  type: "get",
-                  url: "/article/2021-2-12.md",
-                  dataType: "html",
-                  success: function (res) {
-                    $("#article").append(marked(res));
-                  },
-                });
-              });
-            </script>
           </div>
         </div>
         <div class="footer">
@@ -69,20 +57,18 @@
               <div class="footer-card">
                 <div class="background"></div>
                 <div class="title">
-                  <a href="">标题: 谈近四个月学 web 的感受和反思</a>
+                  <a id="2021-2-12" href="#" onclick="return false"
+                    >标题: 谈近四个月学 web 的感受和反思</a
+                  >
                 </div>
               </div>
               <div class="footer-card">
-                <div>标题</div>
-                <div>简介</div>
-              </div>
-              <div class="footer-card">
-                <div>标题</div>
-                <div>简介</div>
-              </div>
-              <div class="footer-card">
-                <div>标题</div>
-                <div>简介</div>
+                <div class="background"></div>
+                <div class="title">
+                  <a id="2021-3-7" href="#" onclick="return false"
+                    >标题: 读开源项目《antd-design》源代码第一天</a
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -93,5 +79,45 @@
 
     <!-- 最后加载该 js 文件 -->
     <script type="text/javascript" src="/homepage/index.js"></script>
+    <script>
+      const id = ["2021-2-12", "2021-3-7"];
+      id.forEach((item, index) => {
+        console.log(item);
+        const target = document.getElementById(item);
+        console.log(target);
+        target.onclick = () => {
+          console.log(item);
+          show(item);
+        };
+      });
+      const show = (url) => {
+        if (url) {
+          // 先将之前渲染出的 Markdown 移除
+          document.getElementById("article").innerHTML = "";
+          $(function () {
+            $.ajax({
+              type: "get",
+              url: `/article/${url}.md`,
+              dataType: "html",
+              success: function (res) {
+                $("#article").append(marked(res));
+              },
+            });
+          });
+        } else {
+          $(function () {
+            $.ajax({
+              type: "get",
+              url: `/article/${id[0]}.md`,
+              dataType: "html",
+              success: function (res) {
+                $("#article").append(marked(res));
+              },
+            });
+          });
+        }
+      };
+      show();
+    </script>
   </body>
 </html>
