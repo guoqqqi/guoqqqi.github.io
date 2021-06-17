@@ -127,7 +127,7 @@ svg {
   margin-bottom: 40px;
 }
 
-#article p code {
+#article p code, li code {
   color: #2486b9;
   background-color: rgba(102, 169, 201, 0.09);
 }
