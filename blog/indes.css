@@ -97,7 +97,7 @@ svg {
   min-height: 100%;
   overflow: auto;
   position: relative;
-  margin: 30px;
+  margin: 3%;
   border-width: 1px;
   transition: all 0.2s;
   background-color: rgba(255, 255, 255);
@@ -105,7 +105,7 @@ svg {
 }
 
 #article {
-  padding: 20px 140px;
+  padding: 1% 7%;
   line-height: 1.5;
 }
 
@@ -122,12 +122,14 @@ svg {
 #article p {
   font-size: 1rem;
   color: #333333;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   margin-top: 20px;
   margin-bottom: 40px;
 }
 
-#article p code, li code {
+#article p code,
+li code {
   color: #2486b9;
   background-color: rgba(102, 169, 201, 0.09);
 }
@@ -159,7 +161,7 @@ svg {
 }
 
 .footer {
-  margin: 30px;
+  margin: 3%;
   padding: 20px 140px;
   background-color: rgba(255, 255, 255);
   display: flex;
@@ -196,7 +198,6 @@ svg {
 .footer-card .background {
   width: 100%;
   height: 120px;
-  background-image: url(/static/images/background.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -212,14 +213,83 @@ svg {
   width: 0;
   height: 0;
   border: 19px solid;
-  border-color: transparent #B89773 transparent transparent;
-  margin: auto 40px;
+  border-color: transparent #b89773 transparent transparent;
+  margin: auto 4%;
 }
 
 .footer-right {
   width: 0;
   height: 0;
   border: 19px solid;
-  border-color: transparent transparent transparent #B89773;
-  margin: auto 40px;
+  border-color: transparent transparent transparent #b89773;
+  margin: auto 4%;
+}
+
+@media screen and (max-width: 800px) {
+  .container1 {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    position: fixed;
+    opacity: 1;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: all 1s;
+    background: url(/static/images/blog2.jpg) no-repeat center center / 100%
+      100%;
+  }
+
+  .container1 ul {
+    width: 70%;
+    display: flex;
+    text-align: center;
+    cursor: default;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    z-index: 1;
+    margin: 0px auto;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fffef8;
+    border-image: initial;
+    border-radius: 3px;
+    margin-top: 10px;
+  }
+
+  .container1 ul li {
+    width: 25%;
+    font-size: 14px;
+    line-height: 1.75;
+    border-right: 1px solid #fffef8;
+  }
+
+  .container1 ul li a {
+    font-weight: 300;
+    color: #fffef8;
+  }
+
+  .header {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .header p {
+    margin: 10px 0;
+  }
+
+  .container2 {
+    position: inherit;
+    padding: 10px 0 30px;
+    transform: translateY(300px);
+    -webkit-transform: translateY(300px);
+    -moz-transform: translateY(300px);
+    -ms-transform: translateY(300px);
+    -o-transform: translateY(300px);
+  }
+
+  .footer {
+    padding: 0;
+  }
 }

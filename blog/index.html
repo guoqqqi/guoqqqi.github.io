@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="/homepage/indes.css" />
-    <title>Homepage</title>
+    <link rel="stylesheet" type="text/css" href="/blog/indes.css" />
+    <title>Guoqi's Blog</title>
     <!-- Markdown 渲染工具 -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
@@ -14,7 +14,7 @@
     <section class="container1">
       <div class="header">
         <div id="header">
-          <a href="/homepage/" class="headerImg">
+          <a href="" class="headerImg">
             <img
               src="https://avatars.githubusercontent.com/u/72343596?v=4"
               alt="头像"
@@ -34,7 +34,7 @@
           <div class="nav">
             <ul>
               <li><a href="">首页</a></li>
-              <li><a href="/article/2021-2-12.md">博客</a></li>
+              <li><a href="/blog/index.html">博客</a></li>
               <li><a href="">收藏</a></li>
               <li><a href="">工具</a></li>
             </ul>
@@ -55,7 +55,10 @@
             <div id="cardList" class="footer-list">
               <!-- 展示柜卡片列表 -->
               <div class="footer-card">
-                <div class="background"></div>
+                <div
+                  class="background"
+                  style="background-image: url(/static/images/background.jpg)"
+                ></div>
                 <div class="title">
                   <a id="2021-3-7" href="#" onclick="return false"
                     >标题: 读开源项目《antd-design》源代码第一天</a
@@ -63,7 +66,10 @@
                 </div>
               </div>
               <div class="footer-card">
-                <div class="background"></div>
+                <div
+                  class="background"
+                  style="background-image: url(/static/images/blog.jpg)"
+                ></div>
                 <div class="title">
                   <a id="2021-2-12" href="#" onclick="return false"
                     >标题: 谈近四个月学 web 的感受和反思</a
@@ -71,7 +77,10 @@
                 </div>
               </div>
               <div class="footer-card">
-                <div class="background"></div>
+                <div
+                  class="background"
+                  style="background-image: url(/static/images/blog3.jpg)"
+                ></div>
                 <div class="title">
                   <a id="2021-1-30" href="#" onclick="return false"
                     >标题: 关于删除 Cypress 测试中的 wait 方法的一些分享</a
@@ -86,7 +95,7 @@
     </section>
 
     <!-- 最后加载该 js 文件 -->
-    <script type="text/javascript" src="/homepage/index.js"></script>
+    <script type="text/javascript" src="/blog/index.js"></script>
     <script>
       const id = ["2021-3-7", "2021-2-12", "2021-1-30"];
       id.forEach((item, index) => {
