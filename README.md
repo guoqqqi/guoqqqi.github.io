@@ -9,4 +9,4 @@
 
 [这是一个关于动态简历的demo页面](/resume)
 
-[博客](/homepage)
+[博客](/blog)
