@@ -1,12 +1,15 @@
 {
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
-    "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
-    "test:coverage": "umi-test --coverage"
+    "test:coverage": "umi-test --coverage",
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
+
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -29,7 +32,9 @@
     "@types/react-dom": "^17.0.0",
     "@umijs/test": "^3.4.25",
     "eslint": "^7.29.0",
+    "husky": "^6.0.0",
     "lint-staged": "^10.0.7",
+    "pinst": "^2.1.6",
     "prettier": "^2.2.0",
     "react": "17.x",
     "react-dom": "17.x",
