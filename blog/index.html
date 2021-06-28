@@ -120,11 +120,11 @@
     <script type="text/javascript" src="/blog/index.js"></script>
     <script>
       const id = [
-        "2021-3-7",
-        "2021-2-12",
-        "2021-1-30",
-        "2020-11-11",
-        "2020-10-28",
+        '2021-3-7',
+        '2021-2-12',
+        '2021-1-30',
+        '2020-11-11',
+        '2020-10-28',
       ];
       id.forEach((item, index) => {
         console.log(item);
@@ -138,25 +138,25 @@
       const show = (url) => {
         if (url) {
           // 先将之前渲染出的 Markdown 移除
-          document.getElementById("article").innerHTML = "";
+          document.getElementById('article').innerHTML = '';
           $(function () {
             $.ajax({
-              type: "get",
+              type: 'get',
               url: `/article/${url}.md`,
-              dataType: "html",
+              dataType: 'html',
               success: function (res) {
-                $("#article").append(marked(res));
+                $('#article').append(marked(res));
               },
             });
           });
         } else {
           $(function () {
             $.ajax({
-              type: "get",
+              type: 'get',
               url: `/article/${id[0]}.md`,
-              dataType: "html",
+              dataType: 'html',
               success: function (res) {
-                $("#article").append(marked(res));
+                $('#article').append(marked(res));
               },
             });
           });

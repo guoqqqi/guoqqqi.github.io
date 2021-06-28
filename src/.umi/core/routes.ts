@@ -1,26 +1,26 @@
 // @ts-nocheck
-import React from 'react';
-import { ApplyPluginsType } from '/Users/guoqi/workspace/my-app/node_modules/umi/node_modules/@umijs/runtime';
-import * as umiExports from './umiExports';
-import { plugin } from './plugin';
+import React from "react";
+import { ApplyPluginsType } from "/Users/guoqi/workspace/my-app/node_modules/umi/node_modules/@umijs/runtime";
+import * as umiExports from "./umiExports";
+import { plugin } from "./plugin";
 
 export function getRoutes() {
   const routes = [
-  {
-    "path": "/MyDetail",
-    "exact": true,
-    "component": require('@/pages/MyDetail/index.tsx').default
-  },
-  {
-    "path": "/",
-    "exact": true,
-    "component": require('@/pages/index.tsx').default
-  }
-];
+    {
+      path: "/MyDetail",
+      exact: true,
+      component: require("@/pages/MyDetail/index.tsx").default,
+    },
+    {
+      path: "/",
+      exact: true,
+      component: require("@/pages/index.tsx").default,
+    },
+  ];
 
   // allow user to extend routes
   plugin.applyPlugins({
-    key: 'patchRoutes',
+    key: "patchRoutes",
     type: ApplyPluginsType.event,
     args: { routes },
   });

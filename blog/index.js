@@ -1,7 +1,7 @@
 const R = document.getElementById("clickRight");
 const L = document.getElementById("clickLeft");
 const List = document.getElementById("cardList");
-const Length = List.querySelectorAll('div .footer-card');
+const Length = List.querySelectorAll("div .footer-card");
 
 let i = 0;
 R.onclick = () => {

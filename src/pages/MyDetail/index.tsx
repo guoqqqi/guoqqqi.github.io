@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 
-const resumeEditorContent = [`
+const resumeEditorContent = [
+  `
 # 张雨晨
 
 
@@ -45,10 +46,11 @@ cet-6 (525)
 **GitHub: **https://github.com/ShiningDan
 **Animation Resume: https://shiningdan.github.io/react-animation-resume/**
 
-> 如果你喜欢这个效果，Fork [我的项目](https://github.com/ShiningDan/react-animation-resume)，打造你自己的简历！`
+> 如果你喜欢这个效果，Fork [我的项目](https://github.com/ShiningDan/react-animation-resume)，打造你自己的简历！`,
 ];
 
-const styleEditorContent = [`/*
+const styleEditorContent = [
+  `/*
 * Inspired by http://strml.net/
 * 
 * Hello, 我是张雨晨
@@ -157,51 +159,51 @@ html{
 /*
 * I hope you enjoyed this.
 */
-`];
+`,
+];
 
 const MyDetail: React.FC = () => {
-
   useEffect(() => {
     load(styleEditorContent);
   }, []);
-  
+
   const loadItem = (container: any, text: any) => {
     let num = 0;
     let sum = text.length;
     let interval = 16;
     const startLoad = () => {
       setTimeout(() => {
-        num +=1
+        num += 1;
         if (num <= sum) {
           let str = text.substr(0, num);
           container.scrollTop = 100000;
           container.innerHTML = str;
 
           setTimeout(() => {
-            startLoad()
+            startLoad();
           }, interval);
         }
       }, interval);
     };
     startLoad();
-  }
+  };
 
   const load = (contents: any) => {
-    const container = document.getElementById('container');
+    const container = document.getElementById("container");
     console.log(container);
     if (contents.length) {
       loadItem(container, contents[0]);
     }
   };
 
-  console.log(styleEditorContent.length, 'container');
+  console.log(styleEditorContent.length, "container");
 
   return (
     <>
       <div>123</div>
-      <article className="container" id='container'></article>
+      <article className="container" id="container"></article>
     </>
   );
-}
+};
 
 export default MyDetail;
