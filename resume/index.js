@@ -82,7 +82,7 @@ const contentPaper = `
     transform-origin: left;    
   }`;
 
-writeCode("", content, () => {
+writeCode('', content, () => {
   createPaper(() => {
     writeCode(content, contentPaper);
   });
@@ -90,16 +90,16 @@ writeCode("", content, () => {
 
 // 动态输出代码
 function writeCode(prefix, code, fn) {
-  let domCode = document.querySelector("#code");
-  console.log(document.querySelector("code"));
-  domCode.innerHTML = prefix || "";
+  let domCode = document.querySelector('#code');
+  console.log(document.querySelector('code'));
+  domCode.innerHTML = prefix || '';
   let n = 0;
   let timerId = setInterval(() => {
     n++;
     domCode.innerHTML = Prism.highlight(
       prefix + code.substring(0, n),
       Prism.languages.css,
-      "css"
+      'css',
     );
     styleTag.innerHTML = prefix + code.substring(0, n);
     domCode.scrollTop = domCode.scrollTop = domCode.scrollHeight;
@@ -112,8 +112,8 @@ function writeCode(prefix, code, fn) {
 
 // 增加新容器
 function createPaper(fn) {
-  var paper = document.createElement("div");
-  paper.id = "paper";
+  var paper = document.createElement('div');
+  paper.id = 'paper';
   document.body.appendChild(paper);
   fn.call();
 }

@@ -3,12 +3,13 @@
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
-    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,html,md,json}'",
+    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,html,less,md,json}'",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "postpublish": "pinst --enable",
+    "prepare": "husky install"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -32,9 +33,9 @@
     "@umijs/test": "^3.4.25",
     "eslint": "^7.29.0",
     "husky": "^6.0.0",
-    "lint-staged": "^10.0.7",
+    "lint-staged": "^11.0.0",
     "pinst": "^2.1.6",
-    "prettier": "^2.2.0",
+    "prettier": "2.3.2",
     "react": "17.x",
     "react-dom": "17.x",
     "typescript": "^4.1.2",

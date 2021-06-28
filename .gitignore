@@ -2,7 +2,6 @@
 
 # dependencies
 .node_modules
-/src/.umi
 /.pnp
 .pnp.js
 
@@ -11,6 +10,10 @@
 
 # production
 /build
+
+# umi
+.umi
+.umi-production
 
 # misc
 .DS_Store
