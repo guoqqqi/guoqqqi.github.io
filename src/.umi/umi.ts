@@ -6,7 +6,10 @@ import './core/pluginRegister';
 import { createHistory } from './core/history';
 import { ApplyPluginsType } from '/Users/guoqi/workspace/my-app/node_modules/umi/node_modules/@umijs/runtime';
 import { renderClient } from '/Users/guoqi/workspace/my-app/node_modules/umi/node_modules/@umijs/renderer-react/dist/index.js';
-import { getRoutes } from './core/routes'
+import { getRoutes } from './core/routes';
+
+
+
 
 const getClientRender = (args: { hot?: boolean; routes?: any[] } = {}) => plugin.applyPlugins({
   key: 'render',

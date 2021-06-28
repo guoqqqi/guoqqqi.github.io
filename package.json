@@ -3,7 +3,7 @@
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
-    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
+    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,html,less,md,json}'",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
     "postinstall": "husky install",

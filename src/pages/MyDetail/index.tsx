@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
 
 const resumeEditorContent = [
   `
@@ -189,14 +189,14 @@ const MyDetail: React.FC = () => {
   };
 
   const load = (contents: any) => {
-    const container = document.getElementById("container");
+    const container = document.getElementById('container');
     console.log(container);
     if (contents.length) {
       loadItem(container, contents[0]);
     }
   };
 
-  console.log(styleEditorContent.length, "container");
+  console.log(styleEditorContent.length, 'container');
 
   return (
     <>
