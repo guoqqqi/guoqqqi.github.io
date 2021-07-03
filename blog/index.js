@@ -17,3 +17,6 @@ L.onclick = () => {
     List?.setAttribute('style', `transform: translateX(calc(-${i} * (370px)))`);
   }
 };
+
+const height = document.documentElement.scrollHeight;
+console.log(height);
