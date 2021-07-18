@@ -225,6 +225,10 @@ li code {
   margin: auto 4%;
 }
 
+p img {
+  width: 100%;
+}
+
 @media screen and (max-width: 800px) {
   .container1 {
     width: 100%;
