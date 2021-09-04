@@ -91,7 +91,6 @@ async function handleMarkdownFile(path) {
     const newDeatils = details.filter((e) => {
       return e.type === 'image';
     });
-    console.log(path)
 
     for (let detail of newDeatils) {
       const prevLink = detail.href;
@@ -108,26 +107,26 @@ async function handleMarkdownFile(path) {
       await handleLink(path, prevLink);
     }
 
-    resolve()
-  })
+    resolve();
+  });
 }
 
 async function handleJSONFile(path) {
   return new Promise(async (resolve, reject) => {
-    const langs = ["zh-CN", "en-US"]
+    const langs = ['zh-CN', 'en-US'];
 
     const prevData = JSON.parse(readFileSync(path, { encoding: 'utf8' }));
-    let data = []
+    let data = [];
 
     for (const lang of langs) {
       if (prevData[lang]) {
-        data = prevData[lang].map(item => item.logo || item.image)
-      } else if (prevData["news"]) {
-        data = prevData["news"][lang].map(item => item.logo || item.image)
+        data = prevData[lang].map((item) => item.logo || item.image);
+      } else if (prevData['news']) {
+        data = prevData['news'][lang].map((item) => item.logo || item.image);
       }
     }
 
-    data = data.filter(Boolean)
+    data = data.filter(Boolean);
 
     for (const prevLink of data) {
       if (
@@ -140,8 +139,8 @@ async function handleJSONFile(path) {
 
       await handleLink(path, prevLink);
     }
-    resolve()
-  })
+    resolve();
+  });
 }
 
 async function replaceMarkdownLink(folderPath) {
@@ -149,11 +148,11 @@ async function replaceMarkdownLink(folderPath) {
 
   for (let path of result.files) {
     if (path.endsWith('.md')) {
-      await handleMarkdownFile(path)
+      await handleMarkdownFile(path);
     }
 
     if (path.endsWith('.json')) {
-      await handleJSONFile(path)
+      await handleJSONFile(path);
     }
   }
 }
