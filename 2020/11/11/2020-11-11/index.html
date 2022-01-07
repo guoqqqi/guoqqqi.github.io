@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>近来三件事情的总结 | Guoqi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="近来三件事情的总结2020-11-11 近一个月来学到了许多新的知识，更加的被 web 技术吸引，新的发现，每当我解决一个新的问题的时候，有的不仅仅是惊喜，还在解决问题的过程中发现了许多新的知识，这让我有机会更多的去了解web。  初探 React最近做了三件事，第一件事是解决了a7官网上语言切换功能，之前的版本是在子路由点击切换语言按钮的时候会跳转到首页。解决该问题的时候由于我刚开始想的比较复杂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="近来三件事情的总结">
+<meta property="og:url" content="https://guoqqqi.github.io/guoqqqi.github.io/2020/11/11/2020-11-11/index.html">
+<meta property="og:site_name" content="Guoqi&#39;s Blog">
+<meta property="og:description" content="近来三件事情的总结2020-11-11 近一个月来学到了许多新的知识，更加的被 web 技术吸引，新的发现，每当我解决一个新的问题的时候，有的不仅仅是惊喜，还在解决问题的过程中发现了许多新的知识，这让我有机会更多的去了解web。  初探 React最近做了三件事，第一件事是解决了a7官网上语言切换功能，之前的版本是在子路由点击切换语言按钮的时候会跳转到首页。解决该问题的时候由于我刚开始想的比较复杂">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-11-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-07T05:38:54.120Z">
+<meta property="article:author" content="Qi Guo">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/guoqqqi.github.io/atom.xml" title="Guoqi&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/guoqqqi.github.io/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/guoqqqi.github.io/" id="logo">Guoqi&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/guoqqqi.github.io/">Home</a>
+        
+          <a class="main-nav-link" href="/guoqqqi.github.io/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/guoqqqi.github.io/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://guoqqqi.github.io/guoqqqi.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2020-11-11" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/guoqqqi.github.io/2020/11/11/2020-11-11/" class="article-date">
+  <time datetime="2020-11-10T16:00:00.000Z" itemprop="datePublished">2020-11-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      近来三件事情的总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="近来三件事情的总结"><a href="#近来三件事情的总结" class="headerlink" title="近来三件事情的总结"></a>近来三件事情的总结</h2><p>2020-11-11</p>
+<p>近一个月来学到了许多新的知识，更加的被 web 技术吸引，新的发现，每当我解决一个新的问题的时候，有的不仅仅是惊喜，还在解决问题的过程中发现了许多新的知识，这让我有机会更多的去了解web。</p>
+<hr>
+<h3 id="初探-React"><a href="#初探-React" class="headerlink" title="初探 React"></a>初探 React</h3><p>最近做了三件事，第一件事是解决了<a target="_blank" rel="noopener" href="https://www.apiseven.com/zh">a7官网</a>上语言切换功能，之前的版本是在子路由点击切换语言按钮的时候会跳转到首页。解决该问题的时候由于我刚开始想的比较复杂，走错了很多方向，探究无果后，最后用了 React 中的两个钩子：<code>useState</code> <code>useEffect</code> 得以解决。以及<code>location.pathname</code>得以解决，想了很久的问题，最后用了三行代码搞定，虽然被吊来回改了许多次，但是最后还是很开心成功的解决了该问题。不仅巩固了 React 中两个常用钩子的原理和用法，同时学到了<code>location.pathname</code>的使用。至于这些用法，相信大佬们早已了然于心，但对我萌新的我来说，这些对目前的我来说还是非常重要的，当然了大家也可以在各处搜到它们相关的用法和原理，这里这是记录我的学习过程。</p>
+<h3 id="首次处理-API-数据"><a href="#首次处理-API-数据" class="headerlink" title="首次处理 API 数据"></a>首次处理 API 数据</h3><p>第二件事是做了为音博网页新增了三个小<code>Card</code>内容，并接上了三个api接口。这是我首次接触处理后端 API 返回的数据的任务，这次经历确确实实又增多了我不少的认识和对数据处理的过程。这三个小<code>Card</code>用到了不同的数据，通过不同的 API 接口却又类似的方法最终以图表的形式显示出来，这个过程是我近来接触项目中学到关于后端 API 数据处理块的，最多的一个经历。解决问题的过程几次让我懵圈，因为取到的数据与我需要使用的数据大不相同，我不知该如何下手，从这件事让我明白了:</p>
+<ol>
+<li><p>问问题的时候一定要理清楚思绪再问，并且把自己的想法说清楚，让别人明白自己到哪里卡住了，才能及时有效的获得到帮助。</p>
+</li>
+<li><p>遇到问题不要传播自己的负面情绪，可能自己暂时解决不出来就自暴自弃，这样也是非常不可取的，要相信一定可以解决掉它，不会的就一点一点的来学。更要不怕被吊的去询问自己不清楚的问题和遇到的难题。</p>
+</li>
+<li><p>要想清楚再动手，很多问题如果方向错误是尝试不出来的，在未了解需求和理清楚自己的逻辑是否正确的情况下动手是一个错误的解决办法。</p>
+</li>
+</ol>
+<h3 id="用假数据来写页面"><a href="#用假数据来写页面" class="headerlink" title="用假数据来写页面"></a>用假数据来写页面</h3><p>第三件事是为<a target="_blank" rel="noopener" href="https://github.com/apache/apisix-dashboard">Dashboard</a> 制作一个 info 详情页，有了为音播接入 API 的经历，这次倒是很明白了该如何去做，解决过程中也遇到了一些之前遇到的数据类型错误问题，但是这次就没有之前那样无措了，知道该从哪里下手，该如何正确的解决它。在学到新的框架知识的同时又稳定了之前新学到的一些知识，因为现在还未得到新的真实的 API 接口，心里还是十分的担心，害怕再出问题，决定明天把项目其他调接口的方法看一看，学一学，顺便为<a target="_blank" rel="noopener" href="https://www.apiseven.com/zh">a7官网</a>更改一点之前早就想改掉的样式把！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://guoqqqi.github.io/guoqqqi.github.io/2020/11/11/2020-11-11/" data-id="cky403nf10002cruldo1hbuhq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/guoqqqi.github.io/2021/01/30/2021-1-30/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于删除前端测试中的 wait 的一些分享
+        
+      </div>
+    </a>
+  
+  
+    <a href="/guoqqqi.github.io/2020/10/28/2020-10-28/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">从一张白纸到初识 Web</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/guoqqqi.github.io/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/guoqqqi.github.io/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/guoqqqi.github.io/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/guoqqqi.github.io/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/guoqqqi.github.io/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/guoqqqi.github.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/guoqqqi.github.io/archives/2020/10/">October 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/guoqqqi.github.io/2021/08/07/2021-8-7/">近一个月来工作的反思</a>
+          </li>
+        
+          <li>
+            <a href="/guoqqqi.github.io/2021/06/28/2021-6-28/">对 Ant Design 定制和使用表单的总结</a>
+          </li>
+        
+          <li>
+            <a href="/guoqqqi.github.io/2021/03/07/2021-3-7/">读开源项目《antd-design》源代码第一天</a>
+          </li>
+        
+          <li>
+            <a href="/guoqqqi.github.io/2021/02/12/2021-2-12/">谈近四个月学 web 的感受和反思</a>
+          </li>
+        
+          <li>
+            <a href="/guoqqqi.github.io/2021/01/30/2021-1-30/">关于删除前端测试中的 wait 的一些分享</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Qi Guo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/guoqqqi.github.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/guoqqqi.github.io/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/guoqqqi.github.io/fancybox/jquery.fancybox.css">
+
+  
+<script src="/guoqqqi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/guoqqqi.github.io/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
