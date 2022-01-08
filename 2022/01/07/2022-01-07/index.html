@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<!--<![endif]-->
+
+<head>
+  <title>APISIX 在 arm 版 ubuntu 构建踩坑日记 | Guoqi&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Guoqi's Blog">
+    <meta name="author" content="Qi Guo">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/guoqqqi.github.io/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Guoqi&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/guoqqqi.github.io/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/guoqqqi.github.io/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/guoqqqi.github.io/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/guoqqqi.github.io/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/guoqqqi.github.io/js/html5shiv.min.js"></script>
+    <script src="/guoqqqi.github.io/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/guoqqqi.github.io/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/guoqqqi.github.io/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/guoqqqi.github.io/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a target="_blank" rel="noopener" href="http://go.kieran.top/" class="animsition-link">Kieran</a></li>
+                    
+                    <li><a target="_blank" rel="noopener" href="http://domain.com/" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            
+            <li><a href="/guoqqqi.github.io/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/guoqqqi.github.io/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Guoqi's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2022-01-06T16:00:00.000Z" itemprop="datePublished">
+          2022-01-07
+      </time>
+    
+</span>
+                <h1>APISIX 在 arm 版 ubuntu 构建踩坑日记</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<h1 id="APISIX-在-arm-版-ubuntu-构建踩坑日记"><a href="#APISIX-在-arm-版-ubuntu-构建踩坑日记" class="headerlink" title="APISIX 在 arm 版 ubuntu 构建踩坑日记"></a>APISIX 在 arm 版 ubuntu 构建踩坑日记</h1><p>2022-01-07</p>
+<p>本篇文章记录了通过源码构建 APISIX 的踩坑记录，ubuntu 环境使用的是 <a target="_blank" rel="noopener" href="https://multipass.run/">https://multipass.run/</a> 中的 Multipass 。</p>
+<h2 id="克隆源码"><a href="#克隆源码" class="headerlink" title="克隆源码"></a>克隆源码</h2><p>首先根据 <a target="_blank" rel="noopener" href="https://apisix.apache.org/zh/docs/apisix/how-to-build#%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%8C%85%E5%AE%89%E8%A3%85">官方文档</a> 安装 APISIX 源码仓库。并且进入项目文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd apisix-2.11.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装项目依赖"><a href="#安装项目依赖" class="headerlink" title="安装项目依赖"></a>安装项目依赖</h2><ol>
+<li>现在我们可以通过脚本一键安装项目所需要的依赖拉，在根目录下运行下面命令：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash utils/install-dependencies.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/1.png" alt="1.png"></p>
+<p>不出所料，没有成功跑完。通过错误提示我们知道，这里是未能成功安装 <code>OpenResty</code>。原因是默认没有 <code>arm 64</code> 平台的源。</p>
+<ol start="2">
+<li>下面我们手动安装下 OpenResty：参考 <a target="_blank" rel="noopener" href="https://openresty.org/cn/linux-packages.html#ubuntu">https://openresty.org/cn/linux-packages.html#ubuntu</a></li>
+</ol>
+<ul>
+<li>步骤一：安装导入 GPG 公钥时所需的几个依赖包（整个安装过程完成后可以随时删除它们）：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -y install --no-install-recommends wget gnupg ca-certificates</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>步骤二：导入我们的 GPG 密钥：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O - https://openresty.org/package/pubkey.gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<p>成功：</p>
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/2.png" alt="2.png"></p>
+<ul>
+<li>步骤三：添加 OpenResty 官方 APT 仓库。对于 x86_64 或 amd64 系统，可以使用下面的命令：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb http://openresty.org/package/ubuntu $(lsb_release -sc) main&quot; \</span><br><span class="line">    | sudo tee /etc/apt/sources.list.d/openresty.list</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>而对于 arm64 或 aarch64 系统，则可以使用下面的命令:（我在 M1 上运行的是该命令，上个命令会报错）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb http://openresty.org/package/arm64/ubuntu $(lsb_release -sc) main&quot; \</span><br><span class="line">    | sudo tee /etc/apt/sources.list.d/openresty.list</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>步骤四：更新 APT 索引：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<p>然后就可以像下面这样安装软件包，比如 <code>OpenResty</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -y install openresty</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>步骤五：（可选）可以通过下面命令删除该包和对应的关联包：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -y install --no-install-recommends software-properties-common</span><br></pre></td></tr></table></figure>
+
+<p>成功安装 <code>OpenResty</code> :</p>
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/3.png" alt="3.png"></p>
+<ol start="3">
+<li>重新运行安装依赖脚本 （参考上面 1. ）</li>
+<li>接着运行 <code>LUAROCKS_SERVER=https://luarocks.cn</code> 命令安装依赖：</li>
+</ol>
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/4.png" alt="4.png"></p>
+<p>运行下面命令即可：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/apache/apisix/master/utils/linux-install-luarocks.sh -sL | bash -</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/5.png" alt="5.png"></p>
+<p>又出现错误提示了。。。接着运行下面命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install wget sudo unzip</span><br></pre></td></tr></table></figure>
+
+<p>接着我们重新运行一次：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/apache/apisix/master/utils/linux-install-luarocks.sh -sL | bash -</span><br></pre></td></tr></table></figure>
+
+<p>然后我们继续运行安装依赖的命令：<code>LUAROCKS_SERVER=https://luarocks.cn make deps</code><br>终于成功了，哭了，坑确实太多了。</p>
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/6.png" alt="6.png"></p>
+<p>大部分依赖已经成功安装好，但是又有新的错误提示了。<br>这里看起来是两个仓库未能成功克隆下来，没关系，先往后面运行试试：</p>
+<ol start="5">
+<li>安装 APISIX 命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br><span class="line">// 如果出现权限不足的提示，用 sudo make install</span><br></pre></td></tr></table></figure>
+
+<p>成功：</p>
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/7.png" alt="7.png"></p>
+<h2 id="安装-etcd"><a href="#安装-etcd" class="headerlink" title="安装 etcd"></a>安装 etcd</h2><h3 id="踩坑-etcd"><a href="#踩坑-etcd" class="headerlink" title="踩坑 etcd"></a>踩坑 etcd</h3><p>启动 APISIX 之前需要安装下 etcd，参考 <a target="_blank" rel="noopener" href="https://apisix.apache.org/docs/apisix/2.10/install-dependencies/#ubuntu-1604--1804">官方文档</a></p>
+<blockquote>
+<p>（由于该安装教程并不是针对 arm 写的，所以虽然成功安装了 etcd，但是未能成功将 etcd 运行起来，原因是因为默认使用的 x86 的二进制文件启动，所以无法运行。可以跳过该部分直接参考在 「docker 中运行 etcd 服务」部分）</p>
+</blockquote>
+<ul>
+<li>第一步运行：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/etcd-io/etcd/releases/download/v3.4.13/etcd-v3.4.13-linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第二部运行：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf etcd-v3.4.13-linux-amd64.tar.gz &amp;&amp; \    cd etcd-v3.4.13-linux-amd64 &amp;&amp; \    sudo cp -a etcd etcdctl /usr/bin/</span><br></pre></td></tr></table></figure>
+
+<p>成功：</p>
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/8.png" alt="8.png"></p>
+<ul>
+<li>第三部启动 etcd 服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup etcd &amp;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/9.png" alt="9.png"></p>
+<p>然后我在后面运行 APISIX 时发现 etcd 报错了：</p>
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/10.png" alt="10.png"></p>
+<p>发现在 arm 上的 ubuntu 裸跑 etcd 坑太多了，各种各样的错误，后来决定还是跑 docker 吧～</p>
+<h3 id="在-docker-中运行-etcd-服务"><a href="#在-docker-中运行-etcd-服务" class="headerlink" title="在 docker 中运行 etcd 服务"></a>在 docker 中运行 etcd 服务</h3><ol>
+<li>安装 docker </li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install docker.io</span><br></pre></td></tr></table></figure>
+
+<p>Tip: docker 常用的命令：(无权限错误在命令前添加 sudo)</p>
+<ul>
+<li>查看所有容器列表 docker ps -a</li>
+<li>查看正在运行的容器列表 docker ps</li>
+<li>查看镜像列表 docker image list</li>
+<li>删除所有容器 docker container prune</li>
+<li>删除所有镜像 docker image prune -f -a<br>更多参考：<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html">Docker 入门教程 - 阮一峰的网络日志</a></li>
+</ul>
+<ol start="2">
+<li>拉取并运行 etcd</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name etcd -p 2379:2379 -e ETCD_UNSUPPORTED_ARCH=arm64 -e ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379 -e ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379 gcr.io/etcd-development/etcd:v3.5.1-arm64</span><br></pre></td></tr></table></figure>
+
+<p>注意：该镜像需要开代理。<br>成功：</p>
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/11.png" alt="11.png"></p>
+<p>验证是否运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/12.png" alt="12.png"></p>
+<p>这样，etcd 已经成功启动了。</p>
+<h2 id="启动-APISIX"><a href="#启动-APISIX" class="headerlink" title="启动 APISIX"></a>启动 APISIX</h2><p>所有的依赖项目已经准备完毕，现在我们可以启动 APISIX 拉～直接参考如何构建 APISIX <a target="_blank" rel="noopener" href="https://apisix.apache.org/docs/apisix/how-to-build">官方文档</a></p>
+<ul>
+<li>第一步安装依赖</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make deps</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第二部初始化依赖，启动 APISIX</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apisix init</span><br><span class="line"></span><br><span class="line">// start APISIX</span><br><span class="line">apisix start</span><br><span class="line"></span><br><span class="line">// stop APISIX</span><br><span class="line">apisix stop</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/13.png" alt="13.png"></p>
+<p>没有任何错误信息了，完美收工！</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>总体来说，有两个大坑是安装 APISIX 依赖部分和 arm 的 etcd 部分，etcd 部分可以直接用 docker 来解决，不过在拉取镜像的时候也会有一些坑，直接换别的镜像尝试就好。如果以后别人再问我用 M1 开发有什么建议吗，那我就建议：珍爱生命，远离 M1 😂 – 引自白泽平同学。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
+    
+    
+    <a class="pull-right" href="/guoqqqi.github.io/2021/08/07/2021-8-7/">
+        近一个月来工作的反思 →
+    </a>
+    
+</nav>
+
+        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
+  /**
+   * 搜狐畅言
+   */
+
+  /*
+  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
+
+  window.onload = function () {
+    (function () {
+      var appid = 'cytXXXX';
+      var conf = 'prod_xxxxxxxxxxxxxxxxx';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      var loadJs = function (d, a, id) {
+        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+        var b = document.createElement("script");
+        b.setAttribute("type", "text/javascript");
+        b.setAttribute("charset", "UTF-8");
+        b.setAttribute("src", d);
+        if (id) {
+          b.setAttribute("id", id);
+        }
+        if (typeof a === "function") {
+          if (window.attachEvent) {
+            b.onreadystatechange = function () {
+              var e = b.readyState;
+              if (e === "loaded" || e === "complete") {
+                b.onreadystatechange = null;
+                a()
+              }
+            }
+          } else {
+            b.onload = a
+          }
+        }
+        c.appendChild(b)
+      };
+
+      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
+        window.changyan.api.config({
+          appid: appid,
+          conf: conf
+        })
+      });
+    })();
+  }
+  */
+
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Qi Guo. All Rights Reserved.
+                </p>
+                <p>Theme By <a target="_blank" rel="noopener" href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/guoqqqi.github.io/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/guoqqqi.github.io/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/guoqqqi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/guoqqqi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+      
+</body>
+</html>
