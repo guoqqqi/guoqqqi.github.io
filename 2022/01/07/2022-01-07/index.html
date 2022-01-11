@@ -191,7 +191,7 @@
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash utils/install-dependencies.sh</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/1.png" alt="1.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/1.png" alt="1.png"></p>
 <p>不出所料，没有成功跑完。通过错误提示我们知道，这里是未能成功安装 <code>OpenResty</code>。原因是默认没有 <code>arm 64</code> 平台的源。</p>
 <ol start="2">
 <li>下面我们手动安装下 OpenResty：参考 <a target="_blank" rel="noopener" href="https://openresty.org/cn/linux-packages.html#ubuntu">https://openresty.org/cn/linux-packages.html#ubuntu</a></li>
@@ -207,7 +207,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O - https://openresty.org/package/pubkey.gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
 
 <p>成功：</p>
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/2.png" alt="2.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/2.png" alt="2.png"></p>
 <ul>
 <li>步骤三：添加 OpenResty 官方 APT 仓库。对于 x86_64 或 amd64 系统，可以使用下面的命令：</li>
 </ul>
@@ -231,16 +231,16 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -y install --no-install-recommends software-properties-common</span><br></pre></td></tr></table></figure>
 
 <p>成功安装 <code>OpenResty</code> :</p>
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/3.png" alt="3.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/3.png" alt="3.png"></p>
 <ol start="3">
 <li>重新运行安装依赖脚本 （参考上面 1. ）</li>
 <li>接着运行 <code>LUAROCKS_SERVER=https://luarocks.cn</code> 命令安装依赖：</li>
 </ol>
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/4.png" alt="4.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/4.png" alt="4.png"></p>
 <p>运行下面命令即可：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/apache/apisix/master/utils/linux-install-luarocks.sh -sL | bash -</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/5.png" alt="5.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/5.png" alt="5.png"></p>
 <p>又出现错误提示了。。。接着运行下面命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install wget sudo unzip</span><br></pre></td></tr></table></figure>
 
@@ -248,7 +248,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/apache/apisix/master/utils/linux-install-luarocks.sh -sL | bash -</span><br></pre></td></tr></table></figure>
 
 <p>然后我们继续运行安装依赖的命令：<code>LUAROCKS_SERVER=https://luarocks.cn make deps</code><br>终于成功了，哭了，坑确实太多了。</p>
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/6.png" alt="6.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/6.png" alt="6.png"></p>
 <p>大部分依赖已经成功安装好，但是又有新的错误提示了。<br>这里看起来是两个仓库未能成功克隆下来，没关系，先往后面运行试试：</p>
 <ol start="5">
 <li>安装 APISIX 命令</li>
@@ -256,7 +256,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br><span class="line">// 如果出现权限不足的提示，用 sudo make install</span><br></pre></td></tr></table></figure>
 
 <p>成功：</p>
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/7.png" alt="7.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/7.png" alt="7.png"></p>
 <h2 id="安装-etcd"><a href="#安装-etcd" class="headerlink" title="安装 etcd"></a>安装 etcd</h2><h3 id="踩坑-etcd"><a href="#踩坑-etcd" class="headerlink" title="踩坑 etcd"></a>踩坑 etcd</h3><p>启动 APISIX 之前需要安装下 etcd，参考 <a target="_blank" rel="noopener" href="https://apisix.apache.org/docs/apisix/2.10/install-dependencies/#ubuntu-1604--1804">官方文档</a></p>
 <blockquote>
 <p>（由于该安装教程并不是针对 arm 写的，所以虽然成功安装了 etcd，但是未能成功将 etcd 运行起来，原因是因为默认使用的 x86 的二进制文件启动，所以无法运行。可以跳过该部分直接参考在 「docker 中运行 etcd 服务」部分）</p>
@@ -272,15 +272,15 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf etcd-v3.4.13-linux-amd64.tar.gz &amp;&amp; \    cd etcd-v3.4.13-linux-amd64 &amp;&amp; \    sudo cp -a etcd etcdctl /usr/bin/</span><br></pre></td></tr></table></figure>
 
 <p>成功：</p>
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/8.png" alt="8.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/8.png" alt="8.png"></p>
 <ul>
 <li>第三部启动 etcd 服务</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup etcd &amp;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/9.png" alt="9.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/9.png" alt="9.png"></p>
 <p>然后我在后面运行 APISIX 时发现 etcd 报错了：</p>
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/10.png" alt="10.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/10.png" alt="10.png"></p>
 <p>发现在 arm 上的 ubuntu 裸跑 etcd 坑太多了，各种各样的错误，后来决定还是跑 docker 吧～</p>
 <h3 id="在-docker-中运行-etcd-服务"><a href="#在-docker-中运行-etcd-服务" class="headerlink" title="在 docker 中运行 etcd 服务"></a>在 docker 中运行 etcd 服务</h3><ol>
 <li>安装 docker </li>
@@ -301,11 +301,11 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name etcd -p 2379:2379 -e ETCD_UNSUPPORTED_ARCH=arm64 -e ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379 -e ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379 gcr.io/etcd-development/etcd:v3.5.1-arm64</span><br></pre></td></tr></table></figure>
 
 <p>注意：该镜像需要开代理。<br>成功：</p>
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/11.png" alt="11.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/11.png" alt="11.png"></p>
 <p>验证是否运行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/12.png" alt="12.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/12.png" alt="12.png"></p>
 <p>这样，etcd 已经成功启动了。</p>
 <h2 id="启动-APISIX"><a href="#启动-APISIX" class="headerlink" title="启动 APISIX"></a>启动 APISIX</h2><p>所有的依赖项目已经准备完毕，现在我们可以启动 APISIX 拉～直接参考如何构建 APISIX <a target="_blank" rel="noopener" href="https://apisix.apache.org/docs/apisix/how-to-build">官方文档</a></p>
 <ul>
@@ -318,7 +318,7 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apisix init</span><br><span class="line"></span><br><span class="line">// start APISIX</span><br><span class="line">apisix start</span><br><span class="line"></span><br><span class="line">// stop APISIX</span><br><span class="line">apisix stop</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://guoqi-test-1307026204.cos.ap-shanghai.myqcloud.com/202108/13.png" alt="13.png"></p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/13.png" alt="13.png"></p>
 <p>没有任何错误信息了，完美收工！</p>
 <h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>总体来说，有两个大坑是安装 APISIX 依赖部分和 arm 的 etcd 部分，etcd 部分可以直接用 docker 来解决，不过在拉取镜像的时候也会有一些坑，直接换别的镜像尝试就好。如果以后别人再问我用 M1 开发有什么建议吗，那我就建议：珍爱生命，远离 M1 😂 – 引自白泽平同学。</p>
 
