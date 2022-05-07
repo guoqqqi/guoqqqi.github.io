@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>使用 Ubuntu 服务器，端口被占用问题 | Guoqi&#39;s Blog</title>
+  <title>APISIX Dashboard 版本对齐 2.13.0 笔记 | Guoqi&#39;s Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -166,49 +166,85 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2022-04-28T16:00:00.000Z" itemprop="datePublished">
-          2022-04-29
+      <time datetime="2022-05-05T16:00:00.000Z" itemprop="datePublished">
+          2022-05-06
       </time>
     
 </span>
-                <h1>使用 Ubuntu 服务器，端口被占用问题</h1>
+                <h1>APISIX Dashboard 版本对齐 2.13.0 笔记</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在服务器上学习使用 Apache APISIX，通过源码构建成功后，打算再用 docker 构建一下，然后就遇到了一个端口被占用的问题，找了一圈找到了一个查找被占用端口，并且 kill 掉端口的命令，今天记录一下，防止丢失。</p>
-<h2 id="解决-Ubuntu-端口被占用"><a href="#解决-Ubuntu-端口被占用" class="headerlink" title="解决 Ubuntu 端口被占用"></a>解决 Ubuntu 端口被占用</h2><p>当遇到端口被占用的错误时，大家一定清楚是哪个端口被占用了，一般在错误信息都会有提示：</p>
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/22-04-29.jpeg" alt="1.jepg"></p>
-<p>遇到权限问题时，在命令前加上 <code>su</code> 以根用户的身份运行命令。</p>
+      		<p>本篇记录了我为 APISIX Dashboard 同步 APISIX 2.13.0 版本所需要做的一些工作内容和步骤，记录下了，既方便自己以后复习，也希望可以帮助到之后的新人～。</p>
+<h2 id="一-导出目标-schema-json"><a href="#一-导出目标-schema-json" class="headerlink" title="一 导出目标 schema.json"></a>一 导出目标 schema.json</h2><p>由于 APISIX 默认未开启所有的插件，而且开启所有插件需要添加一些额外的配置，所以我们选用 docker 来运行 APISIX，并且导出 schema.json。</p>
+<p>apisix-docker 仓库原地址：<a target="_blank" rel="noopener" href="https://github.com/apache/apisix-docker">https://github.com/apache/apisix-docker</a> </p>
 <ol>
-<li>查找被占用的端口使用情况</li>
+<li>将仓库代码克隆到之后，切换到固定 tag。</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -tln #查看所有端口的使用情况</span><br><span class="line"></span><br><span class="line">netstat -tln | grep 9443 #只查看80端口的使用情况</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="variable">$&#123;tag_name&#125;</span></span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li>查看该端口被哪个应用占用</li>
+<ol>
+<li>找到 <code>example/apisix_conf</code> 文件夹下的 <code>config.yaml</code> 文件。将 APISIX 主仓库中的 <code>config-default.yaml</code> 中的插件列表粘贴过来。注意需要将注释掉的插件取消注释。</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :9443 #可获得占用的进程的应用名称，PID 等信息</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/2.jpeg" alt="2.jepg"></p>
-<ol start="3">
-<li>根据进程号（PID）输入以下命令杀掉占用端口的进程来释放即可</li>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20-05-07-1.png" alt="1.png"></p>
+<ol>
+<li>使用 docker 启动 APISIX</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 107748 #107748 为上一步查到的 PID 号</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> example</span><br><span class="line">docker-compose -p docker-apisix up -d</span><br></pre></td></tr></table></figure>
 
-<p>重复 1 - 3 步骤将被占用的端口都清除掉，重新运行 docker，就可以正常启动起来了。</p>
+<ol>
+<li>导出 schema.json</li>
+</ol>
+<p>首先确认 <code>example/apisix_conf</code> 文件夹中的 config.yaml 的 control API 的端口。</p>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-2.png" alt="2.png"></p>
+<p>然后运行命令导出 schema.json</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导出 schema.json</span></span><br><span class="line">curl 127.0.0.1:9092/v1/schema &gt; schema.json</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>导出成功。</li>
+</ol>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-3.png" alt="3.png"></p>
+<ol>
+<li>复制导出的 schema.json 文件准备为它排序。</li>
+</ol>
+<h2 id="二-对-schema-json-进行排序和格式化"><a href="#二-对-schema-json-进行排序和格式化" class="headerlink" title="二  对 schema.json 进行排序和格式化"></a>二  对 schema.json 进行排序和格式化</h2><ol>
+<li>打开 <a target="_blank" rel="noopener" href="https://www.bejson.com/json/jsonsort/">https://www.bejson.com/json/jsonsort/</a>  将已经导出的 schema.json 内容复制到左侧，进行升序排列。</li>
+<li>确认右侧的树状图是正确的。</li>
+</ol>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-4.png" alt="4.png"></p>
+<ol>
+<li>复制右侧代码，替换 apisix-dashboard 仓库中的 schema.json 内容，并且格式化。</li>
+</ol>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-5.png" alt="5.png"></p>
+<h2 id="三-为-apisix-dashboard-提交-PR-更新-schema-json"><a href="#三-为-apisix-dashboard-提交-PR-更新-schema-json" class="headerlink" title="三 为 apisix-dashboard 提交 PR 更新 schema.json"></a>三 为 apisix-dashboard 提交 PR 更新 schema.json</h2><ol>
+<li>观察 diff 文件，判断是否有需要更新的插件 UI，如果有核心资源更新字段，需要更新UI；如果有插件更新，需要更新插件表单)。</li>
+<li>更新新增插件类型。</li>
+</ol>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-6.png" alt="6.png"></p>
+<ul>
+<li>在插件市场中的其他类型中，检查新增的插件，并查看文档，更新相应的类型。</li>
+</ul>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-7.png" alt="7.png"></p>
+<ul>
+<li>如果已有类型中不存在，则统一更改为其他类型： ‘other’</li>
+</ul>
+<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-8.png" alt="8.png"></p>
+<ul>
+<li>提交 PR 查看 GitHub Action 检查</li>
+</ul>
+<h2 id="四-根据-CI-修复对应的测试代码"><a href="#四-根据-CI-修复对应的测试代码" class="headerlink" title="四 根据 CI 修复对应的测试代码"></a>四 根据 CI 修复对应的测试代码</h2><ol>
+<li>修改前端测试 CI</li>
+<li>修改后端测试 CI</li>
+</ol>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
     
-    <a class="pull-left" href="/guoqqqi.github.io/2022/05/06/2022-05-06/" style="float: left;">
-        ← APISIX Dashboard 版本对齐 2.13.0 笔记
-    </a>
     
-    
-    <a class="pull-right" href="/guoqqqi.github.io/2022/03/05/2022-03-05/">
-        后端新手如何从 0 到 1 打造一款 Apache APISIX 插件 →
+    <a class="pull-right" href="/guoqqqi.github.io/2022/04/29/2022-04-29/">
+        使用 Ubuntu 服务器，端口被占用问题 →
     </a>
     
 </nav>

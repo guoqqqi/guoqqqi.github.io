@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>使用 Ubuntu 服务器，端口被占用问题 | Guoqi&#39;s Blog</title>
+  <title>Archives | Guoqi&#39;s Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -60,7 +60,7 @@
 </head>
 
 <!--
-<body class="post-template">
+<body class="home-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -160,113 +160,69 @@
         <!-- ============================ Header & Logo bar =========================== -->
 
 
-      
-<section id="intro">
-    <div class="container">
-        <div class="row col-md-offset-2">
-            <div class="col-md-8">
-    			<span class="post-meta">
-      <time datetime="2022-04-28T16:00:00.000Z" itemprop="datePublished">
-          2022-04-29
-      </time>
-    
-</span>
-                <h1>使用 Ubuntu 服务器，端口被占用问题</h1>
+      <!-- ============================ Hero Image =========================== -->
+
+<section id="hero" class="scrollme">
+    <div class="container-fluid element-img" style="background: url(./img/homepage3.jpg) no-repeat center center fixed;background-size: cover">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                    <div>
+                        
+                        <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                        <p></p>
+                        
+                        <h2></h2>
+                        <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+                        
+
+                    </div>
+                </div>
             </div>
+            <!-- // .col-md-12 -->
         </div>
-        <div class="col-md-8 col-md-offset-2">
-      		<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在服务器上学习使用 Apache APISIX，通过源码构建成功后，打算再用 docker 构建一下，然后就遇到了一个端口被占用的问题，找了一圈找到了一个查找被占用端口，并且 kill 掉端口的命令，今天记录一下，防止丢失。</p>
-<h2 id="解决-Ubuntu-端口被占用"><a href="#解决-Ubuntu-端口被占用" class="headerlink" title="解决 Ubuntu 端口被占用"></a>解决 Ubuntu 端口被占用</h2><p>当遇到端口被占用的错误时，大家一定清楚是哪个端口被占用了，一般在错误信息都会有提示：</p>
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/22-04-29.jpeg" alt="1.jepg"></p>
-<p>遇到权限问题时，在命令前加上 <code>su</code> 以根用户的身份运行命令。</p>
-<ol>
-<li>查找被占用的端口使用情况</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -tln #查看所有端口的使用情况</span><br><span class="line"></span><br><span class="line">netstat -tln | grep 9443 #只查看80端口的使用情况</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>查看该端口被哪个应用占用</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :9443 #可获得占用的进程的应用名称，PID 等信息</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/202108/2.jpeg" alt="2.jepg"></p>
-<ol start="3">
-<li>根据进程号（PID）输入以下命令杀掉占用端口的进程来释放即可</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 107748 #107748 为上一步查到的 PID 号</span><br></pre></td></tr></table></figure>
-
-<p>重复 1 - 3 步骤将被占用的端口都清除掉，重新运行 docker，就可以正常启动起来了。</p>
-
-            <div class="clearfix"></div>
-            <hr class="nogutter">
-        </div>
-        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
-    
-    <a class="pull-left" href="/guoqqqi.github.io/2022/05/06/2022-05-06/" style="float: left;">
-        ← APISIX Dashboard 版本对齐 2.13.0 笔记
-    </a>
-    
-    
-    <a class="pull-right" href="/guoqqqi.github.io/2022/03/05/2022-03-05/">
-        后端新手如何从 0 到 1 打造一款 Apache APISIX 插件 →
-    </a>
-    
-</nav>
-
-        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
-  /**
-   * 搜狐畅言
-   */
-
-  /*
-  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
-
-  window.onload = function () {
-    (function () {
-      var appid = 'cytXXXX';
-      var conf = 'prod_xxxxxxxxxxxxxxxxx';
-      var width = window.innerWidth || document.documentElement.clientWidth;
-      var loadJs = function (d, a, id) {
-        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
-        var b = document.createElement("script");
-        b.setAttribute("type", "text/javascript");
-        b.setAttribute("charset", "UTF-8");
-        b.setAttribute("src", d);
-        if (id) {
-          b.setAttribute("id", id);
-        }
-        if (typeof a === "function") {
-          if (window.attachEvent) {
-            b.onreadystatechange = function () {
-              var e = b.readyState;
-              if (e === "loaded" || e === "complete") {
-                b.onreadystatechange = null;
-                a()
-              }
-            }
-          } else {
-            b.onload = a
-          }
-        }
-        c.appendChild(b)
-      };
-
-      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
-        window.changyan.api.config({
-          appid: appid,
-          conf: conf
-        })
-      });
-    })();
-  }
-  */
-
-</script>
-</div>
+        <div class="herofade beige-dk"></div>
     </div>
 </section>
 
+<!-- Height spacing helper -->
+<div class="heightblock"></div>
+<!-- // End height spacing helper -->
 
+<!-- ============================ END Hero Image =========================== -->
+
+
+
+
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row boxes">
+                    
+                    
+                        
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                            
+                              <h4 class="title"><a href="/guoqqqi.github.io/2020/10/28/2020-10-28/">从一张白纸到初识 Web</a></h4>
+                            
+                            <p><time datetime="2020-10-27T16:00:00.000Z"><a href="/guoqqqi.github.io/2020/10/28/2020-10-28/">2020-10-28</a></time></p>
+                        </div>
+                    
+                </div>
+            </div>    
+        </div>
+    </div>
+</section> 
+
+<section id="statement">
+    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
+        <div class="row">
+            <p>虽然还没想好写点什么，但是总觉得这里放句话比较和谐。</p>
+        </div>
+    </div>
+</section>
       
 <!-- ============================ Footer =========================== -->
 
