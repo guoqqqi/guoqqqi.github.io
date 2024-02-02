@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>APISIX Dashboard 版本对齐 2.13.0 笔记 | Guoqi&#39;s Blog</title>
+  <title>赋能你的 gRPC 应用：使用 API7 企业版网关代理 gRPC 连接 | Guoqi&#39;s Blog</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -175,89 +175,78 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2022-05-05T16:00:00.000Z" itemprop="datePublished">
-          2022-05-06
+      <time datetime="2024-02-02T07:30:33.290Z" itemprop="datePublished">
+          2024-02-02
       </time>
     
+    
+    | 
+    <a href='/guoqqqi.github.io/tags/Concurrency/'>Concurrency</a>,
+    
+    <a href='/guoqqqi.github.io/tags/Latency/'>Latency</a>,
+    
+    <a href='/guoqqqi.github.io/tags/Long-Response/'>Long Response</a>
+    
+    
 </span>
-                <h1>APISIX Dashboard 版本对齐 2.13.0 笔记</h1>
+                <h1>赋能你的 gRPC 应用：使用 API7 企业版网关代理 gRPC 连接</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>本篇记录了我为 APISIX Dashboard 同步 APISIX 2.13.0 版本所需要做的一些工作内容和步骤，记录下了，既方便自己以后复习，也希望可以帮助到之后的新人～。</p>
-<h2 id="一-导出目标-schema-json"><a href="#一-导出目标-schema-json" class="headerlink" title="一 导出目标 schema.json"></a>一 导出目标 schema.json</h2><p>由于 APISIX 默认未开启所有的插件，而且开启所有插件需要添加一些额外的配置，所以我们选用 docker 来运行 APISIX，并且导出 schema.json。</p>
-<p>apisix-docker 仓库原地址：<a target="_blank" rel="noopener" href="https://github.com/apache/apisix-docker">https://github.com/apache/apisix-docker</a> </p>
-<ol>
-<li>将仓库代码克隆到之后，切换到固定 tag。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="variable">$&#123;tag_name&#125;</span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>找到 <code>example/apisix_conf</code> 文件夹下的 <code>config.yaml</code> 文件。将 APISIX 主仓库中的 <code>config-default.yaml</code> 中的插件列表粘贴过来。注意需要将注释掉的插件取消注释。</li>
-</ol>
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20-05-07-1.png" alt="1.png"></p>
-<ol>
-<li>使用 docker 启动 APISIX</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> example</span><br><span class="line">docker-compose -p docker-apisix up -d</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>导出 schema.json</li>
-</ol>
-<p>首先确认 <code>example/apisix_conf</code> 文件夹中的 config.yaml 的 control API 的端口。</p>
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-2.png" alt="2.png"></p>
-<p>然后运行命令导出 schema.json</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导出 schema.json</span></span><br><span class="line">curl 127.0.0.1:9092/v1/schema &gt; schema.json</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>导出成功。</li>
-</ol>
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-3.png" alt="3.png"></p>
-<ol>
-<li>复制导出的 schema.json 文件准备为它排序。</li>
-</ol>
-<h2 id="二-对-schema-json-进行排序和格式化"><a href="#二-对-schema-json-进行排序和格式化" class="headerlink" title="二  对 schema.json 进行排序和格式化"></a>二  对 schema.json 进行排序和格式化</h2><ol>
-<li>打开 <a target="_blank" rel="noopener" href="https://www.bejson.com/json/jsonsort/">https://www.bejson.com/json/jsonsort/</a>  将已经导出的 schema.json 内容复制到左侧，进行升序排列。</li>
-<li>确认右侧的树状图是正确的。</li>
-</ol>
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-4.png" alt="4.png"></p>
-<ol>
-<li>复制右侧代码，替换 apisix-dashboard 仓库中的 schema.json 内容，并且格式化。</li>
-</ol>
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-5.png" alt="5.png"></p>
-<h2 id="三-为-apisix-dashboard-提交-PR-更新-schema-json"><a href="#三-为-apisix-dashboard-提交-PR-更新-schema-json" class="headerlink" title="三 为 apisix-dashboard 提交 PR 更新 schema.json"></a>三 为 apisix-dashboard 提交 PR 更新 schema.json</h2><ol>
-<li>观察 diff 文件，判断是否有需要更新的插件 UI，如果有核心资源更新字段，需要更新UI；如果有插件更新，需要更新插件表单)。</li>
-<li>更新新增插件类型。</li>
-</ol>
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-6.png" alt="6.png"></p>
+      		<p>在当今快速发展的技术领域中，<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/GRPC">gRPC（Google Remote Procedure Call）</a>已经成为许多应用程序中不可或缺的一部分。然而，要充分发挥 gRPC 的潜力，你需要一个强大的 API 网关来有效管理你的 gRPC 服务，为其提供协议转换、负载均衡、身份认证和授权等关键功能。无论你是否熟悉 gRPC，只需花 5 分钟阅读本文，你将掌握使用 <a target="_blank" rel="noopener" href="https://www.apiseven.com/enterprise">API7 企业版</a>网关代理 gRPC 连接的方法。</p>
+<p><img src="https://static.apiseven.com/uploads/2024/01/02/ITu9xgjT_img_v3_026n_141d4850-e004-495e-95a0-66a004458e9g.jpg" alt="API7 Enterprise and gRPC"></p>
+<h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><ol>
+<li><p>安装 <a target="_blank" rel="noopener" href="https://api7.ai/try?product=enterprise">API7 企业版</a>网关；</p>
+</li>
+<li><p>安装 <a target="_blank" rel="noopener" href="https://github.com/fullstorydev/grpcurl#installation">grpcurl</a> 模拟 gRPC 客户端与您的 gRPC 服务器交互；</p>
+</li>
+<li><p>启动一个测试使用的 gRPC 服务；</p>
 <ul>
-<li>在插件市场中的其他类型中，检查新增的插件，并查看文档，更新相应的类型。</li>
+<li><a target="_blank" rel="noopener" href="https://www.apiseven.com/">支流科技</a>提供了一个 <a target="_blank" rel="noopener" href="https://github.com/api7/grpc_server_example">gRPC 服务示例</a> 来帮助你进行测试，你也可以通过 docker 命令来运行它：</li>
 </ul>
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-7.png" alt="7.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name grpc-service -p 50051:50051 --restart always api7/grpc-server-example:1.0.0</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>如果已有类型中不存在，则统一更改为其他类型： ‘other’</li>
+<li>启动成功后，可以用 <code>grpcurl</code> 来查看可用的 gRPC 服务列表和方法：</li>
 </ul>
-<p><img src="https://guoqi-test-1307026204.file.myqcloud.com/Blog/20220507-8.png" alt="8.png"></p>
-<ul>
-<li>提交 PR 查看 GitHub Action 检查</li>
-</ul>
-<h2 id="四-根据-CI-修复对应的测试代码"><a href="#四-根据-CI-修复对应的测试代码" class="headerlink" title="四 根据 CI 修复对应的测试代码"></a>四 根据 CI 修复对应的测试代码</h2><ol>
-<li>修改前端测试 CI</li>
-<li>修改后端测试 CI</li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ grpcurl -plaintext 127.0.0.1:50051 list</span><br><span class="line"></span><br><span class="line">grpc.reflection.v1alpha.ServerReflection</span><br><span class="line">helloworld.Greeter</span><br><span class="line">helloworld.TestImport</span><br><span class="line"></span><br><span class="line">$ grpcurl -plaintext 127.0.0.1:50051 list helloworld.Greeter</span><br><span class="line"></span><br><span class="line">helloworld.Greeter.GetErrResp</span><br><span class="line">helloworld.Greeter.Plus</span><br><span class="line">helloworld.Greeter.SayHello</span><br><span class="line">helloworld.Greeter.SayHelloAfterDelay</span><br><span class="line">helloworld.Greeter.SayHelloBidirectionalStream</span><br><span class="line">helloworld.Greeter.SayHelloClientStream</span><br><span class="line">helloworld.Greeter.SayHelloServerStream</span><br></pre></td></tr></table></figure></li>
 </ol>
+<h2 id="使用-API7-企业版网关代理-gRPC-连接"><a href="#使用-API7-企业版网关代理-gRPC-连接" class="headerlink" title="使用 API7 企业版网关代理 gRPC 连接"></a>使用 API7 企业版网关代理 gRPC 连接</h2><h3 id="更新网关实例配置文件"><a href="#更新网关实例配置文件" class="headerlink" title="更新网关实例配置文件"></a>更新网关实例配置文件</h3><p>默认情况下，API7 企业版网关实例只在 9443 端口支持 TLS 加密的 HTTP/2。通常我们在测试环境中为了便于测试，可以修改网关实例的配置文件，在 <code>node_listen</code> 添加一个端口 9081 支持不加密的 HTTP/2。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apisix:</span><br><span class="line">  node_listen:</span><br><span class="line">    - port: 9080</span><br><span class="line">      enable_http2: false</span><br><span class="line">    - port: 9081</span><br><span class="line">      enable_http2: true</span><br></pre></td></tr></table></figure>
+
+<p>更改完毕后，在安装 API7 企业版网关的 <code>api7-ee</code> 目录下重新运行 <code>docker-compose up -d</code> 即可。</p>
+<h3 id="配置服务和路由"><a href="#配置服务和路由" class="headerlink" title="配置服务和路由"></a>配置服务和路由</h3><p>接下来，我们将在 API7 企业版的控制台页面中配置对应的资源，以代理我们已经准备好的 gRPC 服务。</p>
+<ol>
+<li>新增名为 grpc-example 的服务，并选择 gRPC 为上游 Scheme；</li>
+</ol>
+<p><img src="https://static.apiseven.com/uploads/2024/01/02/Iw7CEI5a_grpc-2.png" alt="Use API7 to proxy grpc-1"></p>
+<ol start="2">
+<li>点击进入刚创建的 grpc-example 服务，添加路由。路由的路径匹配格式为 /{service}/{method}，例如根据我们之前查询到的 gRPC 服务列表和方法，我们可以配置路径为：/helloworld.Greeter/SayHello。</li>
+</ol>
+<p><img src="https://static.apiseven.com/uploads/2024/01/02/SMBLTGMy_grpc-3.png" alt="Use API7 to proxy grpc-2"></p>
+<h3 id="发布服务进行测试"><a href="#发布服务进行测试" class="headerlink" title="发布服务进行测试"></a>发布服务进行测试</h3><p>在创建好服务和路由之后，只需将服务发布到网关组中即可生效。</p>
+<ol>
+<li><p>点击“发布服务”，选择指定的网关组及要发布的服务；</p>
+</li>
+<li><p>添加 gRPC 服务节点（IP +端口），然后点击“发布”；</p>
+</li>
+<li><p>发布成功后我们使用 grpcurl 来模拟 gRPC 客户端：</p>
+<ul>
+<li>我们需要使用一份 helloworld.proto 的文件，确保 grpcurl 程序正确将请求和响应的格式与 gRPC 服务的定义相匹配。我们可以在<a target="_blank" rel="noopener" href="https://github.com/api7/grpc_server_example/blob/master/proto/helloworld.proto">这里</a>找到本示例中用到的 .proto 文件。</li>
+<li>接着我们只需要运行命令，即可看到我们使用 API7 企业版网关成功代理 gRPC 连接。</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ grpcurl -plaintext -proto helloworld.proto  -d &#x27;&#123;&quot;name&quot;:&quot;apisix&quot;&#125;&#x27; 127.0.0.1:9081</span><br><span class="line">helloworld.Greeter.SayHello</span><br><span class="line">&#123;</span><br><span class="line">  &quot;message&quot;: &quot;Hello apisix&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>API7 企业网关内置了 100+ 插件，涵盖了认证、授权、限速、日志、监控等<a target="_blank" rel="noopener" href="https://www.apiseven.com/products/api7/features">广泛功能</a>。通过使用 API7 企业版网关代理 gRPC 服务，将极大提高系统的灵活性、安全性、性能和可管理性，为开发人员和运维团队提供了更好的工具和控制手段。快来试用 <a target="_blank" rel="noopener" href="https://www.apiseven.com/enterprise">API7 企业版</a><a target="_blank" rel="noopener" href="https://www.apiseven.com/enterprise%E7%BD%91%E5%85%B3%EF%BC%8C%E4%B8%BA%E4%BD%A0%E7%9A%84">https://www.apiseven.com/enterprise网关，为你的</a> gRPC 应用赋能吧！</p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
     
-    <a class="pull-left" href="/guoqqqi.github.io/2022/05/10/2022-05-10/" style="float: left;">
-        ← js 对象数组去重
-    </a>
     
-    
-    <a class="pull-right" href="/guoqqqi.github.io/2022/04/29/2022-04-29/">
-        使用 Ubuntu 服务器，端口被占用问题 →
+    <a class="pull-right" href="/guoqqqi.github.io/2022/12/22/2022-12-08/">
+        自定义 Blog 搜索 - 集成 Meilisearch →
     </a>
     
 </nav>
