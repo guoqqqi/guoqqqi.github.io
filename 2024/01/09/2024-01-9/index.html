@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<!--<![endif]-->
+
+<head>
+  <title>ESB vs API 网关：微服务时代集成选择指南 | Guoqi&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Guoqi's Blog">
+    <meta name="author" content="Qi Guo">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/guoqqqi.github.io/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/guoqqqi.github.io/atom.xml" title="Guoqi&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/guoqqqi.github.io/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/guoqqqi.github.io/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/guoqqqi.github.io/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/guoqqqi.github.io/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/guoqqqi.github.io/js/html5shiv.min.js"></script>
+    <script src="/guoqqqi.github.io/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/guoqqqi.github.io/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/guoqqqi.github.io/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/guoqqqi.github.io/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/guoqqqi.github.io/categories/Technology-Products/" class="animsition-link">Technology &amp; Products<small>(5)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="" class="animsition-link">Kieran</a></li>
+                    
+                    <li><a href="" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            
+            <li><a href="/guoqqqi.github.io/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/guoqqqi.github.io/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="./img/logo.jpeg" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Guoqi's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/guoqqqi" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2024-01-08T16:00:00.000Z" itemprop="datePublished">
+          2024-01-09
+      </time>
+    
+    
+    | 
+    <a href='/guoqqqi.github.io/tags/ESB/'>ESB</a>,
+    
+    <a href='/guoqqqi.github.io/tags/API-网关/'>API 网关</a>
+    
+    
+</span>
+                <h1>ESB vs API 网关：微服务时代集成选择指南</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BC%81%E4%B8%9A%E6%9C%8D%E5%8A%A1%E6%80%BB%E7%BA%BF">ESB（企业服务总线，Enterprise Service Bus）</a>是一种用于构建和管理企业级应用集成的软件架构。它通过提供一种标准的、可扩展的通信机制，使不同的应用程序能够相互通信和协同工作。在过去的集成中，ESB 在其强大的集成能力、消息传递引擎和规则引擎等多重优势上，使其成为企业集成的首选解决方案。</p>
+<p><img src="https://static.apiseven.com/uploads/2024/01/09/D1ANGkWj_Bob%27s%20Co-Working%20Space%20%284%29.png" alt="ESB Architecture"></p>
+<p>如今，随着<a target="_blank" rel="noopener" href="https://www.apiseven.com/solutions/monolith-to-microservices">微服务架构</a>和云原生架构的兴起，ESB 解决方案已经被微服务架构和云原生架构替代，因为它们更符合当今业务需求的敏捷性、弹性和可伸缩性。在这样的背景下，API 网关逐渐成为企业集成的新选择，它作为微服务架构的关键组件，扮演着连接、管理和保护微服务的重要角色，填补了 ESB 在分布式环境下的局限性。</p>
+<p><img src="https://static.apiseven.com/uploads/2024/01/09/X9EQHpBF_Bob%27s%20Co-Working%20Space%20%286%29.png" alt="API Gateway Architecture"></p>
+<h2 id="API-网关相比-ESB-的主要不同能力"><a href="#API-网关相比-ESB-的主要不同能力" class="headerlink" title="API 网关相比 ESB 的主要不同能力"></a>API 网关相比 ESB 的主要不同能力</h2><p>API 网关和 ESB 都是用于构建和管理分布式系统中不同服务之间通信的工具，但它们在设计目标和使用场景上有一些区别。ESB 常用于整合企业内部的各种系统和应用。它更着重于企业内部系统的整合，适用于处理复杂的企业内部集成场景。而 API 网关作为一个轻量级组件，更加专注于管理和暴露外部 API，处理实时请求、提供安全性、监控和认证等功能，适用于构建开放的 API 和微服务架构。例如，在一个电商平台的订单处理场景中，API 网关可能会接收来自移动应用、网页前端和第三方服务的订单创建请求，并将其转发到相应的后端服务。</p>
+<h3 id="1-各种适配和协议转换能力"><a href="#1-各种适配和协议转换能力" class="headerlink" title="1. 各种适配和协议转换能力"></a>1. 各种适配和协议转换能力</h3><ul>
+<li><p>ESB：主要强调各种适配和协议转换的能力，因为它的主要设计目标是整合企业内部多样化的系统，这些系统可能使用不同的通信协议和数据格式。ESB 的适配器使它能够轻松处理不同系统间的通信，确保数据能够在系统之间流畅传递。</p>
+</li>
+<li><p>API 网关：通常更专注于 <a target="_blank" rel="noopener" href="https://www.apiseven.com/blog/understanding-and-using-restful-apis">RESTful API</a> 和 HTTP 通信，它的适配和协议转换通常更简化。因为它主要集中在处理外部客户端的请求，而这些请求通常使用的是 Web 标准的协议。</p>
+</li>
+</ul>
+<h3 id="2-SOAP、Web-服务的支持和集成能力"><a href="#2-SOAP、Web-服务的支持和集成能力" class="headerlink" title="2. SOAP、Web 服务的支持和集成能力"></a>2. SOAP、Web 服务的支持和集成能力</h3><ul>
+<li><p>ESB：传统的 ESB 系统通常对 SOAP 和基于 Web 服务的通信有良好的支持，它能够直接处理这些基于标准的服务调用。</p>
+</li>
+<li><p>API 网关：更注重对 RESTful API 的支持，虽然也可以处理 <a target="_blank" rel="noopener" href="https://www.apiseven.com/blog/api-7-enterprise-soap">SOAP</a> 请求，但是对于 RESTful API 的支持更为直接，更符合现代的 Web API 设计趋势。</p>
+</li>
+</ul>
+<h3 id="3-路由能力"><a href="#3-路由能力" class="headerlink" title="3. 路由能力"></a>3. 路由能力</h3><ul>
+<li><p>ESB：具有复杂的消息路由能力，能够基于多种条件（消息内容、目标服务等）将消息转发到不同的系统或服务，适用于处理企业内部多个系统的复杂集成场景。</p>
+</li>
+<li><p>API 网关：同样提供路由功能，API 网关更专注于简化 API 的管理，它通常基于 URI 路径将请求转发到后端服务，适用于对外提供 API 的场景。</p>
+</li>
+</ul>
+<h3 id="4-消息中间件能力"><a href="#4-消息中间件能力" class="headerlink" title="4. 消息中间件能力"></a>4. 消息中间件能力</h3><ul>
+<li><p>ESB：具备消息中间件的能力，ESB 支持异步消息传递，利用消息队列等机制实现解耦和可靠的系统间通信。这使得 ESB 适用于大规模数据交换和复杂业务流程的处理。</p>
+</li>
+<li><p>API 网关：通常更注重实时同步通信和处理 API 请求上，API 网关更专注于直接处理客户端请求，适用于实时数据交互，如移动应用、Web 前端等场景。</p>
+</li>
+</ul>
+<p>在实际应用中，有时候 ESB 和 API 网关可能会共同存在，各自发挥优势，构建复杂、多层次的系统架构。因此在选择使用 ESB 还是 API 网关取决于具体的业务需求和架构设计。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>随着时代的演进，业务环境的变迁，以及技术架构的不断创新，API 网关作为一种现代企业架构的解决方案逐渐脱颖而出。其轻量级、灵活性、专注于外部 API 管理的特性，让它更好地适应了当今快速发展和变化的业务需求。</p>
+<p>然而，我们也不能忽视 ESB 在传统企业内部系统集成中的价值。在处理复杂的企业内部集成场景时，ESB 仍然发挥着关键作用。因此，对于企业来说，不同的集成方案并非是非此即彼的选择，而是需要根据实际和业务需求灵活运用。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
+    
+    <a class="pull-left" href="/guoqqqi.github.io/2024/01/16/2024-01-16/" style="float: left;">
+        ← 服务发现：解锁微服务架构的关键
+    </a>
+    
+    
+    <a class="pull-right" href="/guoqqqi.github.io/2024/01/02/2024-01-2/">
+        赋能你的 gRPC 应用：使用 API7 企业版网关代理 gRPC 连接 →
+    </a>
+    
+</nav>
+
+        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
+  /**
+   * 搜狐畅言
+   */
+
+  /*
+  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
+
+  window.onload = function () {
+    (function () {
+      var appid = 'cytXXXX';
+      var conf = 'prod_xxxxxxxxxxxxxxxxx';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      var loadJs = function (d, a, id) {
+        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+        var b = document.createElement("script");
+        b.setAttribute("type", "text/javascript");
+        b.setAttribute("charset", "UTF-8");
+        b.setAttribute("src", d);
+        if (id) {
+          b.setAttribute("id", id);
+        }
+        if (typeof a === "function") {
+          if (window.attachEvent) {
+            b.onreadystatechange = function () {
+              var e = b.readyState;
+              if (e === "loaded" || e === "complete") {
+                b.onreadystatechange = null;
+                a()
+              }
+            }
+          } else {
+            b.onload = a
+          }
+        }
+        c.appendChild(b)
+      };
+
+      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
+        window.changyan.api.config({
+          appid: appid,
+          conf: conf
+        })
+      });
+    })();
+  }
+  */
+
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Qi Guo. All Rights Reserved.
+                </p>
+                <p>Theme By <a target="_blank" rel="noopener" href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/guoqqqi" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/guoqqqi.github.io/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/guoqqqi.github.io/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/guoqqqi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/guoqqqi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+      
+</body>
+</html>

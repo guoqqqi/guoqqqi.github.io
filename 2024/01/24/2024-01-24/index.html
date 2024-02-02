@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<!--<![endif]-->
+
+<head>
+  <title>使用 API7 企业版代理 Kubernetes 集群中的应用 | Guoqi&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Guoqi's Blog">
+    <meta name="author" content="Qi Guo">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/guoqqqi.github.io/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/guoqqqi.github.io/atom.xml" title="Guoqi&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/guoqqqi.github.io/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/guoqqqi.github.io/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/guoqqqi.github.io/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/guoqqqi.github.io/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/guoqqqi.github.io/js/html5shiv.min.js"></script>
+    <script src="/guoqqqi.github.io/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/guoqqqi.github.io/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/guoqqqi.github.io/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/guoqqqi.github.io/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/guoqqqi.github.io/categories/Technology-Products/" class="animsition-link">Technology &amp; Products<small>(5)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="" class="animsition-link">Kieran</a></li>
+                    
+                    <li><a href="" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            
+            <li><a href="/guoqqqi.github.io/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/guoqqqi.github.io/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="./img/logo.jpeg" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Guoqi's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/guoqqqi" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2024-01-23T16:00:00.000Z" itemprop="datePublished">
+          2024-01-24
+      </time>
+    
+    
+    | 
+    <a href='/guoqqqi.github.io/tags/Kubernetes-集群/'>Kubernetes 集群</a>,
+    
+    <a href='/guoqqqi.github.io/tags/API7-Enterprise/'>API7 Enterprise</a>
+    
+    
+</span>
+                <h1>使用 API7 企业版代理 Kubernetes 集群中的应用</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>在当今快速演进的云原生时代，<a target="_blank" rel="noopener" href="https://www.apiseven.com/solutions/vm-to-kubernetes">Kubernetes</a> 已经成为许多企业构建弹性且可扩展应用的首选解决方案。<a target="_blank" rel="noopener" href="https://www.apiseven.com/enterprise">API7 企业版</a> 提供了强大的安全性和流量管理的能力，并且具备极高的性能。API7 企业版支持您一键连接到 Kubernetes 服务注册中心，代理您在 Kubernetes 集群中部署的服务，下面我们来介绍如何使用 API7 企业版代理 Kubernetes 集群中的应用。</p>
+<h2 id="前置准备"><a href="#前置准备" class="headerlink" title="前置准备"></a>前置准备</h2><ol>
+<li>安装 <a target="_blank" rel="noopener" href="https://api7.ai/try?product=enterprise">API7 企业版</a></li>
+</ol>
+<p><strong>注意</strong>：如果 API7 企业版没有在 Kubernetes 中部署，需要配置部署 API7 企业版机器的网络配置，确保 API7 企业版可以访问到 Kubernetes 中的上游 pod。</p>
+<ol start="2">
+<li>在 Kubernetes 中部署服务</li>
+</ol>
+<p>如果你已经在 Kubernetes 中部署了一些服务，那么你可以忽略此步骤；如果没有，你可以运行下面的命令创建服务：</p>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建一个新的 namespace</span></span><br><span class="line">kubectl create namespace api7ee</span><br><span class="line"></span><br><span class="line">kubectl create deployment httpbin --image=kennethreitz/httpbin:latest -n api7ee</span><br><span class="line">kubectl create service clusterip httpbin --tcp=80:80 -n api7ee</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>创建 Kubernetes 服务账户</li>
+</ol>
+<ul>
+<li><p>API7 企业版需要此凭证去请求 Kubernetes 的 API 获取上游配置，所以我们需要创建一个 rbac 的资源，yaml 文件如下：</p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">      <span class="comment"># rbac.yaml</span></span><br><span class="line">      <span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line">      <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">      <span class="attr">metadata:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">api7-k8s-sd-watcher</span></span><br><span class="line">      <span class="attr">rules:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">          <span class="attr">resources:</span> [<span class="string">&quot;endpoints&quot;</span>]</span><br><span class="line">          <span class="attr">verbs:</span> [<span class="string">&quot;list&quot;</span>, <span class="string">&quot;watch&quot;</span>]</span><br><span class="line">      <span class="string">---</span></span><br><span class="line">      <span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line">      <span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line">      <span class="attr">metadata:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">api7-k8s-sd-watcher-binding</span></span><br><span class="line">      <span class="attr">subjects:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">api7-k8s-sd-sa</span></span><br><span class="line">          <span class="attr">namespace:</span> <span class="string">api7ee</span></span><br><span class="line">      <span class="attr">roleRef:</span></span><br><span class="line">        <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">api7-k8s-sd-watcher</span></span><br><span class="line">        <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line">      <span class="string">---</span></span><br><span class="line">      <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">      <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">      <span class="attr">metadata:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">api7-k8s-sd-sa</span></span><br><span class="line">        <span class="attr">namespace:</span> <span class="string">api7ee</span></span><br><span class="line">      <span class="string">---</span></span><br><span class="line">      <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">      <span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line">      <span class="attr">metadata:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">api7-k8s-sd-secret</span></span><br><span class="line">        <span class="attr">namespace:</span> <span class="string">api7ee</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">kubernetes.io/service-account.name:</span> <span class="string">api7-k8s-sd-sa</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">kubernetes.io/service-account-token</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">创建</span> <span class="string">RBAC</span> <span class="string">资源并获取</span> <span class="string">Token。</span></span><br><span class="line"></span><br><span class="line">   <span class="string">```Shell</span></span><br><span class="line">   <span class="string">kubectl</span> <span class="string">apply</span> <span class="string">-f</span> <span class="string">rbac.yaml</span> <span class="string">-n</span> <span class="string">api7ee</span></span><br><span class="line">   <span class="string">kubectl</span> <span class="string">get</span> <span class="string">secrets</span> <span class="string">api7-k8s-sd-secret</span> <span class="string">-n</span> <span class="string">api7ee</span> <span class="string">-ojsonpath=&#x27;&#123;.data.token&#125;&#x27;</span> <span class="string">|</span> <span class="string">base64</span> <span class="string">-d</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="在-API7-Enterprise-实现-Kubernetes-服务发现"><a href="#在-API7-Enterprise-实现-Kubernetes-服务发现" class="headerlink" title="在 API7 Enterprise 实现 Kubernetes 服务发现"></a>在 API7 Enterprise 实现 Kubernetes 服务发现</h2><h3 id="连接-Kubernetes-服务注册中心"><a href="#连接-Kubernetes-服务注册中心" class="headerlink" title="连接 Kubernetes 服务注册中心"></a>连接 Kubernetes 服务注册中心</h3><ol>
+<li><p>点击进入到我们已有的一个网关组中，并点击菜单左侧的<strong>服务注册中心</strong>进入；</p>
+</li>
+<li><p>点击<strong>新增服务注册中心连接</strong>按钮，选择 Kubernetes 发现类型，并填充 Kubernetes API 服务访问地址和令牌；</p>
+</li>
+</ol>
+<p><img src="https://static.apiseven.com/uploads/2024/01/22/7ghZAwBe_PA_1_ZH.png" alt="PA_1"></p>
+<ol start="3">
+<li>等待 API7 企业版连接服务注册中心成功后，可以看到健康的状态。</li>
+</ol>
+<p><img src="https://static.apiseven.com/uploads/2024/01/22/Jk2ymXok_PA_2_ZH.png" alt="PA_2"></p>
+<h3 id="发布服务进行测试"><a href="#发布服务进行测试" class="headerlink" title="发布服务进行测试"></a>发布服务进行测试</h3><ol>
+<li><p>点击进入到服务页面，创建服务并添加 <code>/anything</code> 路由;</p>
+</li>
+<li><p>发布服务，并选择对应的上游：</p>
+</li>
+</ol>
+<p><img src="https://static.apiseven.com/uploads/2024/01/22/y5ZQmQQA_PA_3_ZH.png" alt="PA_3"></p>
+<ol start="3">
+<li>发布成功后，使用 <code>curl</code> 直接进行测试即可。</li>
+</ol>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>以上就是使用 API7 企业级网关代理 Kubernetes 集群中服务的步骤，如果你想了解更多有关 <a target="_blank" rel="noopener" href="https://www.apiseven.com/enterprise">API7 企业版</a>网关的功能，欢迎<a target="_blank" rel="noopener" href="https://api7.ai/contact">联系我们</a>。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
+    
+    <a class="pull-left" href="/guoqqqi.github.io/2024/02/01/2024-02-01/" style="float: left;">
+        ← 什么是服务器发送事件（SSE）？它有什么好处？
+    </a>
+    
+    
+    <a class="pull-right" href="/guoqqqi.github.io/2024/01/16/2024-01-16/">
+        服务发现：解锁微服务架构的关键 →
+    </a>
+    
+</nav>
+
+        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
+  /**
+   * 搜狐畅言
+   */
+
+  /*
+  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
+
+  window.onload = function () {
+    (function () {
+      var appid = 'cytXXXX';
+      var conf = 'prod_xxxxxxxxxxxxxxxxx';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      var loadJs = function (d, a, id) {
+        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+        var b = document.createElement("script");
+        b.setAttribute("type", "text/javascript");
+        b.setAttribute("charset", "UTF-8");
+        b.setAttribute("src", d);
+        if (id) {
+          b.setAttribute("id", id);
+        }
+        if (typeof a === "function") {
+          if (window.attachEvent) {
+            b.onreadystatechange = function () {
+              var e = b.readyState;
+              if (e === "loaded" || e === "complete") {
+                b.onreadystatechange = null;
+                a()
+              }
+            }
+          } else {
+            b.onload = a
+          }
+        }
+        c.appendChild(b)
+      };
+
+      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
+        window.changyan.api.config({
+          appid: appid,
+          conf: conf
+        })
+      });
+    })();
+  }
+  */
+
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Qi Guo. All Rights Reserved.
+                </p>
+                <p>Theme By <a target="_blank" rel="noopener" href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/guoqqqi" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/guoqqqi.github.io/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/guoqqqi.github.io/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/guoqqqi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/guoqqqi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+      
+</body>
+</html>

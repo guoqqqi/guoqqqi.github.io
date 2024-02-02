@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<!--<![endif]-->
+
+<head>
+  <title>服务发现：解锁微服务架构的关键 | Guoqi&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Guoqi's Blog">
+    <meta name="author" content="Qi Guo">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/guoqqqi.github.io/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/guoqqqi.github.io/atom.xml" title="Guoqi&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/guoqqqi.github.io/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/guoqqqi.github.io/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/guoqqqi.github.io/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/guoqqqi.github.io/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/guoqqqi.github.io/js/html5shiv.min.js"></script>
+    <script src="/guoqqqi.github.io/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/guoqqqi.github.io/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/guoqqqi.github.io/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/guoqqqi.github.io/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/guoqqqi.github.io/categories/Technology-Products/" class="animsition-link">Technology &amp; Products<small>(5)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="" class="animsition-link">Kieran</a></li>
+                    
+                    <li><a href="" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            
+            <li><a href="/guoqqqi.github.io/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/guoqqqi.github.io/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="./img/logo.jpeg" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Guoqi's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/guoqqqi" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2024-01-15T16:00:00.000Z" itemprop="datePublished">
+          2024-01-16
+      </time>
+    
+    
+    | 
+    <a href='/guoqqqi.github.io/tags/服务发现/'>服务发现</a>,
+    
+    <a href='/guoqqqi.github.io/tags/微服务架构/'>微服务架构</a>
+    
+    
+</span>
+                <h1>服务发现：解锁微服务架构的关键</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>随着微服务架构的兴起，越来越多的企业开始向微服务架构转型。<a target="_blank" rel="noopener" href="https://www.apiseven.com/solutions/monolith-to-microservices">微服务架构</a>作为一种现代化的解决方案，它将传统的大型单体应用划分为一系列小型且自治的服务。这种架构模式下为开发人员带来了极高的灵活性和可扩展性，但同时也带来了新的挑战，其中之一就是我们今天的主角“微服务架构中的服务发现”。</p>
+<h2 id="什么是服务发现"><a href="#什么是服务发现" class="headerlink" title="什么是服务发现"></a>什么是服务发现</h2><p><a target="_blank" rel="noopener" href="https://apisix.apache.org/zh/blog/2022/11/10/what-is-service-in-microservice-discovery/">服务发现</a>是指在分布式系统中，自动发现和识别可用的服务的过程。它的主要目标是为了解决微服务架构中，分散在各个不同服务器上的服务在运行时能够相互通信，建立连接。例如，假设我们要搭建一个在线的购物平台，其中的订单服务、支付服务、用户服务由不同的小团队独立完成，当订单服务需要于支付服务通信时，它就向服务发现系统询问支付服务的地址，由服务发现系统返回可用支付服务的地址，使服务之间具备动态通信的能力。这种自动化的服务查找过程使得微服务系统更灵活、可伸缩，也更容易维护。</p>
+<h2 id="服务发现的基本原理"><a href="#服务发现的基本原理" class="headerlink" title="服务发现的基本原理"></a>服务发现的基本原理</h2><p>服务发现的主要目的是为了使微服务之间的通信变得更加简单，各个微服务可以通过服务发现系统自动找到并建立连接。它的基本原理主要包括了服务注册，服务查询和动态更新。</p>
+<p>当我们启动一个服务时，它首先向服务发现系统注册自己的信息，比如服务名称和地址。这样当其他服务就可以通过服务发现系统查询到它的可用服务列表，从而建立连接。当系统遇到高负载时，服务实例可能会动态扩容，服务发现系统会实时更新注册表，这就确保了整个系统的灵活和稳定性。</p>
+<p><img src="https://static.apiseven.com/uploads/2024/01/15/LC6r8Oe1_Service-Discovery-1.png" alt="Service_Discovery_1"></p>
+<p><img src="https://static.apiseven.com/uploads/2024/01/15/HtL1xTWJ_Service-Discovery-2.png" alt="Service_Discovery_2"></p>
+<h2 id="服务发现带来的好处"><a href="#服务发现带来的好处" class="headerlink" title="服务发现带来的好处"></a>服务发现带来的好处</h2><p>服务发现作为微服务架构中的关键技术，为分布式系统的构建提供了强大的支持。</p>
+<ol>
+<li><p>动态性和弹性：在传统的单体应用中，服务的位置通常是静态的，因为单体应用的组件部署在同一台服务器上。而在微服务架构中，服务的实例可能会动态启动、停止或迁移到不同的主机，这就需要一种动态的服务发现机制来管理这些变化。</p>
+</li>
+<li><p>自动化服务定位：服务发现自动化了服务的定位过程。开发人员不需要手动配置服务的位置信息，而是依赖注册中心来获取服务实例的地址。这降低了配置的复杂性，提高了系统的可维护性，同时也避免了因为配置错误引发的一系列生产事故。</p>
+</li>
+<li><p>容错性和负载均衡：当一个服务实例不可用时，服务注册中心可以自动将其标记为不健康，从而避免向它发送请求。同时，负载均衡算法可以基于服务实例的健康状态，将请求分发到可用的实例上，实现了流量的均衡分配，确保系统的高可用性。</p>
+</li>
+</ol>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>总地来说，服务发现为分布式系统的构建提供了强大的支持，它不仅带来了灵活性和弹性的能力，在当今业务快速迭代和变化的背景下，它也极大的简化了整个开发、部署和维护过程。</p>
+<p>值得一提的是，在微服务架构中，服务发现仅是构建可靠和高效系统的一部分。随着业务的推进，微服务数量的增加，服务之间的通信和数据交互变得更加复杂，此时引入 <a target="_blank" rel="noopener" href="https://www.apiseven.com/blog/4-core-functions-of-api-gateway">API 网关</a>就变得至关重要。</p>
+<p>如果你想了解更多有关 API 管理的解决方案，欢迎<a target="_blank" rel="noopener" href="https://www.apiseven.com/">联系我们</a>。</p>
+<h2 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h2><p><a target="_blank" rel="noopener" href="https://www.apiseven.com/blog/how-customer-first-guides-api7-cloud">备战一年半，我们让最火的开源网关上了云</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.apiseven.com/blog/4-core-functions-of-api-gateway">API 网关四大核心功能：连接、过滤、治理、集成</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.apiseven.com/blog/api-monetization-with-chatgpt">API 货币化：解锁 ChatGPT 时代 API 调用量的商业潜力</a></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
+    
+    <a class="pull-left" href="/guoqqqi.github.io/2024/01/24/2024-01-24/" style="float: left;">
+        ← 使用 API7 企业版代理 Kubernetes 集群中的应用
+    </a>
+    
+    
+    <a class="pull-right" href="/guoqqqi.github.io/2024/01/09/2024-01-9/">
+        ESB vs API 网关：微服务时代集成选择指南 →
+    </a>
+    
+</nav>
+
+        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
+  /**
+   * 搜狐畅言
+   */
+
+  /*
+  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
+
+  window.onload = function () {
+    (function () {
+      var appid = 'cytXXXX';
+      var conf = 'prod_xxxxxxxxxxxxxxxxx';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      var loadJs = function (d, a, id) {
+        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+        var b = document.createElement("script");
+        b.setAttribute("type", "text/javascript");
+        b.setAttribute("charset", "UTF-8");
+        b.setAttribute("src", d);
+        if (id) {
+          b.setAttribute("id", id);
+        }
+        if (typeof a === "function") {
+          if (window.attachEvent) {
+            b.onreadystatechange = function () {
+              var e = b.readyState;
+              if (e === "loaded" || e === "complete") {
+                b.onreadystatechange = null;
+                a()
+              }
+            }
+          } else {
+            b.onload = a
+          }
+        }
+        c.appendChild(b)
+      };
+
+      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
+        window.changyan.api.config({
+          appid: appid,
+          conf: conf
+        })
+      });
+    })();
+  }
+  */
+
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Qi Guo. All Rights Reserved.
+                </p>
+                <p>Theme By <a target="_blank" rel="noopener" href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/guoqqqi" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/guoqqqi.github.io/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/guoqqqi.github.io/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/guoqqqi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/guoqqqi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+      
+</body>
+</html>

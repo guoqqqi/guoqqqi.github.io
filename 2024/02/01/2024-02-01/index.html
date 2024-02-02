@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<!--<![endif]-->
+
+<head>
+  <title>什么是服务器发送事件（SSE）？它有什么好处？ | Guoqi&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Guoqi's Blog">
+    <meta name="author" content="Qi Guo">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/guoqqqi.github.io/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/guoqqqi.github.io/atom.xml" title="Guoqi&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/guoqqqi.github.io/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/guoqqqi.github.io/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/guoqqqi.github.io/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/guoqqqi.github.io/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/guoqqqi.github.io/js/html5shiv.min.js"></script>
+    <script src="/guoqqqi.github.io/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/guoqqqi.github.io/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/guoqqqi.github.io/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/guoqqqi.github.io/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/guoqqqi.github.io/categories/Technology-Products/" class="animsition-link">Technology &amp; Products<small>(5)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="" class="animsition-link">Kieran</a></li>
+                    
+                    <li><a href="" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            
+            <li><a href="/guoqqqi.github.io/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/guoqqqi.github.io/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="./img/logo.jpeg" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Guoqi's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/guoqqqi" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2024-01-31T16:00:00.000Z" itemprop="datePublished">
+          2024-02-01
+      </time>
+    
+    
+    | 
+    <a href='/guoqqqi.github.io/tags/SSE/'>SSE</a>
+    
+    
+</span>
+                <h1>什么是服务器发送事件（SSE）？它有什么好处？</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<h2 id="什么是服务器发送事件（SSE）？"><a href="#什么是服务器发送事件（SSE）？" class="headerlink" title="什么是服务器发送事件（SSE）？"></a>什么是服务器发送事件（SSE）？</h2><p>服务器发送事件（SSE）是一种基于 HTTP 协议的单向通信协议，它允许服务器以事件流（Event Stream）的形式实时向客户端推送数据，而无需客户端明确请求。它建立在标准的 HTTP 协议之上，通过单向的持久连接，服务器可以主动向客户端发送事件和数据。</p>
+<p><img src="https://static.apiseven.com/uploads/2024/01/29/VM79w4PW_SSE-1.png" alt="Server-Sent Events"></p>
+<p>本质上，它是以流信息的方式来实现的，由客户端向服务端发起建立连接请求，并保持连接打开，然后服务端主动推送消息给客户端，服务器给客户端发送的 SSE 数据，必须是 UTF-8 编码，且返回的内容类型是 text/event-stream。</p>
+<p>比如当你在使用 ChatGPT 时，当你询问它问题时，你会看到它会逐字地将回答显示出来，实际上这是 ChatGPT 将先计算出的数据主动的“推送”给你，采用 SSE 技术边计算边返回，避免接口等待时间过长而直接关闭页面。</p>
+<p><img src="https://static.apiseven.com/uploads/2024/01/29/wHosGrAz_SSE2.png" alt="Example of server-sent events"></p>
+<h2 id="SSE-的优势"><a href="#SSE-的优势" class="headerlink" title="SSE 的优势"></a>SSE 的优势</h2><ol>
+<li><p><strong>实时性</strong>：SSE 提供了一种实时通信机制，允许服务器主动向客户端推送数据。这种实时性使得 SSE 特别适用于需要即时更新的应用场景，如实时聊天、在线协作工具、实时数据展示、通知推送等。</p>
+</li>
+<li><p><strong>减少网络负担</strong>：与传统的轮询方式相比，SSE 采用长连接，通过单一的 HTTP 连接，服务器可以向客户端推送多个事件，避免了频繁的 HTTP 请求，从而减少了网络负担。</p>
+</li>
+<li><p><strong>轻量级</strong>：SSE 是基于 HTTP 协议，现有的服务器软件都支持，相较于 WebSocket，SSE 的使用更加简单。</p>
+</li>
+<li><p><strong>自动重连</strong>：SSE 在连接中断后能够自动尝试重新建立连接，而无需额外的代码。这种自动重连机制增加了系统的稳定性，确保即使在网络不稳定的情况下，通信仍能够持续进行。</p>
+</li>
+</ol>
+<h2 id="使用-API7-企业版网关代理-SSE-服务"><a href="#使用-API7-企业版网关代理-SSE-服务" class="headerlink" title="使用 API7 企业版网关代理 SSE 服务"></a>使用 API7 企业版网关代理 SSE 服务</h2><p>在实际应用中，利用 API 网关代理 SSE 服务有助于提升服务的稳定性，解决安全和跨域问题，适用于处理复杂的应用场景。NGINX 作为最受欢迎的反向代理服务器之一，市场份额颇高。在 NGINX 上代理 SSE 服务时，需要禁用 proxy_buffering。然而，这种配置至少要在 location 级别进行关闭，这意味着如果系统中存在多个 location，仅有少数需要关闭缓存以支持 SSE 服务时，可能会影响其他非 SSE 的 API 的性能。此外，NGINX 的 proxy_buffering 配置缺乏灵活性，无法在运行时动态启用或禁用，需要通过重新加载配置来生效，这可能会导致服务中断。</p>
+<p>API7 企业版提供了 <a target="_blank" rel="noopener" href="https://docs.api7.ai/hub/proxy-buffering">proxy-buffering</a> 插件，让您能更灵活地代理 SSE 上游服务。通过在相应的路由中启用该插件，您可以轻松控制缓存的开关，而无需重新加载整个配置。这种灵活性既能满足 SSE 服务的代理需求，又兼顾性能和动态配置的要求。</p>
+<p><img src="https://static.apiseven.com/uploads/2024/01/29/ft7aJ4Ml_SSE-3.png" alt="SSE plugin of API7 Enterprise"></p>
+<p>通过测试可以看到已经成功代理了 SSE 服务。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">curl &quot;http://127.0.0.1:9080/.sse&quot; -H &quot;Accept: text/event-stream&quot;</span><br><span class="line"></span><br><span class="line">event: server</span><br><span class="line">data: 27d365b177ae</span><br><span class="line">id: 1</span><br><span class="line"></span><br><span class="line">event: request</span><br><span class="line">data: GET /.sse HTTP/1.1</span><br><span class="line">data:</span><br><span class="line">data: Host: 127.0.0.1:9080</span><br><span class="line">data: Accept: text/event-stream</span><br><span class="line">data: User-Agent: curl/8.1.2</span><br><span class="line">data: X-Forwarded-For: 192.168.65.1</span><br><span class="line">data: X-Forwarded-Host: 127.0.0.1</span><br><span class="line">data: X-Forwarded-Port: 9080</span><br><span class="line">data: X-Forwarded-Proto: http</span><br><span class="line">data: X-Real-Ip: 192.168.65.1</span><br><span class="line">data:</span><br><span class="line">id: 2</span><br><span class="line"></span><br><span class="line">event: time</span><br><span class="line">data: 2024-01-29T04:04:20Z</span><br><span class="line">id: 3</span><br><span class="line"></span><br><span class="line">event: time</span><br><span class="line">data: 2024-01-29T04:04:21Z</span><br><span class="line">id: 4</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总体而言，SSE 适用于需要实时通信和更新的场景，它提供了一种简单而有效的方式。但是需要注意 SSE 是一种单向通道，只能由服务器向客户端发送消息，所以 SSE 并不适用于所有类型的实时通信需求。对于更复杂的双向通信场景，可以考虑使用 WebSocket 等其他技术。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
+    
+    
+    <a class="pull-right" href="/guoqqqi.github.io/2024/01/24/2024-01-24/">
+        使用 API7 企业版代理 Kubernetes 集群中的应用 →
+    </a>
+    
+</nav>
+
+        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
+  /**
+   * 搜狐畅言
+   */
+
+  /*
+  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
+
+  window.onload = function () {
+    (function () {
+      var appid = 'cytXXXX';
+      var conf = 'prod_xxxxxxxxxxxxxxxxx';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      var loadJs = function (d, a, id) {
+        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+        var b = document.createElement("script");
+        b.setAttribute("type", "text/javascript");
+        b.setAttribute("charset", "UTF-8");
+        b.setAttribute("src", d);
+        if (id) {
+          b.setAttribute("id", id);
+        }
+        if (typeof a === "function") {
+          if (window.attachEvent) {
+            b.onreadystatechange = function () {
+              var e = b.readyState;
+              if (e === "loaded" || e === "complete") {
+                b.onreadystatechange = null;
+                a()
+              }
+            }
+          } else {
+            b.onload = a
+          }
+        }
+        c.appendChild(b)
+      };
+
+      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
+        window.changyan.api.config({
+          appid: appid,
+          conf: conf
+        })
+      });
+    })();
+  }
+  */
+
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Qi Guo. All Rights Reserved.
+                </p>
+                <p>Theme By <a target="_blank" rel="noopener" href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/guoqqqi" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/guoqqqi.github.io/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/guoqqqi.github.io/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/guoqqqi.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/guoqqqi.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+      
+</body>
+</html>
